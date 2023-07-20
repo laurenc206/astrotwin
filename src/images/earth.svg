@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+<title>earth</title>
+<desc>Created with Sketch.</desc>
+<g fill="none" fill-rule="evenodd" stroke-linecap="round">
+<g transform="translate(11.842 11.41)" stroke="#6B6B6B" stroke-width="2">
+<polyline points="43.642 58.928 54.86 45.761 64.646 58.301" stroke-linejoin="round"/>
+<polyline points="4.5832 67.086 28.095 31.976 52.547 74.61 78.562 42.103 95.554 61.316" stroke-linejoin="round"/>
+<circle cx="49.098" cy="48.59" r="48.277"/>
+</g>
+</g>
+</svg>
