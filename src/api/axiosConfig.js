@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL: "http://localhost:8080"
+    baseURL: "https://astrotwin-7687de6a87fd.herokuapp.com"
 });
