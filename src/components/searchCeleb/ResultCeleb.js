@@ -24,12 +24,13 @@ const ResultCeleb = () => {
     useEffect(() => {
         const planetMap = new Map(celeb?.celebChart.chart.map(i => [i.planet, [i.zodiac, i.element, i.mode, i.house]]));
         setCelebChart(planetMap)
-        
-        for (var i = 0; i < matchData?.length; i++) {
-          if (celeb.name === matchData[i].celeb.name) {
-            setCurMatch(matchData[i])
-            break;
-          }
+        if (matchData) {
+            for (var i = 0; i < matchData?.length; i++) {
+                if (celeb.name === matchData[i].celeb.name) {
+                setCurMatch(matchData[i])
+                break;
+            }
+        }
         }
     }, [])
 

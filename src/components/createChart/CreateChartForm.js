@@ -48,7 +48,7 @@ const CreateChartForm = ({createUser, user}) => {
                         onChange={onChange}
                         onBlur={onBlur}
                         selected={value}
- 
+                        
                         />
                     )}
                 />
@@ -72,6 +72,7 @@ const CreateChartForm = ({createUser, user}) => {
                         value={value}
                         onChange={onChange}
                         onBlur={onBlur}
+                        
                     />
                     </LocalizationProvider>
                     )}

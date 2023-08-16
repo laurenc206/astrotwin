@@ -1,18 +1,69 @@
 import api from '../../api/axiosConfig'
 import { Controller, useForm, handleSubmit} from 'react-hook-form'
-import {TextField} from '@mui/material/'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import {CircularProgress, TextField} from '@mui/material/'
+import React, { useState, useEffect } from 'react'
+import { json, useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom';
+import Autocomplete from "@mui/material/Autocomplete";
 
 const SearchCeleb = ({user, userChart, matchData}) => {
     const { control, handleSubmit, formState: {isSubmitting}} = useForm()
-    const [state, setState] = useState('');
+    const [errorState, setErrorState] = useState('');
     const navigate = useNavigate();
+
+    const [open, setOpen] = useState(false);
+    const [options, setOptions] = useState([]);
+    const loading = open && options.length === 0;
+    const [celebData, setCelebData] = useState([]);
+
+    useEffect(() => {
+        console.log("on load? api call")
+        api.get('/api/v1/celeb/search/findAll').then((res) => {
+            setCelebData(res.data)
+            setOptions(res.data)
+            console.log("set celeb data " + JSON.stringify(celebData))  
+        })
+    }, [])
+    
+
+    useEffect(() => {
+        let active = true;
+        if (!loading) {
+          return undefined;
+        }
+    
+        (async () => {
+            if (active) {
+                console.log("set options ")
+                setOptions(celebData)    
+                console.log("options " + JSON.stringify(options))
+                console.log("celeb data " + JSON.stringify(celebData))
+            }
+        })();
+    
+        return () => {
+          active = false;
+        };
+
+      }, [loading]);
+    
+    useEffect(() => {
+        if (!open) {
+          setOptions([]);
+        }
+    }, [open, celebData]);
+    
 
 
     const onSubmit = (data, e) => {
-        setState('')
+        setErrorState('')
+        console.log("on submit data " + JSON.stringify(data))
+        
+
+
+        //const celeb = data.Name
+
+        //navigate("/resultCeleb", {state: {celeb : celeb, user: user, userChart: userChart, matchData: matchData}})
         api.get(`/api/v1/celeb/search/${data.Name}`)
                           .then((res) => {
                             const celeb = res.data
@@ -20,7 +71,7 @@ const SearchCeleb = ({user, userChart, matchData}) => {
                           })
                           .catch((err) => {
                             console.log("error " + JSON.stringify(err))
-                            setState(err.code);
+                            setErrorState(err.code);
                           });
     };
 
@@ -46,14 +97,52 @@ const SearchCeleb = ({user, userChart, matchData}) => {
                     control={control}
                     name="Name"
                     rules={{ required: "Name is required" }}
-                    render={({ field: {onChange, onBlur, value, ref} }) => (
-                    <TextField                    
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        selected={value}
-                        size="small"
-                        className="text-field w-input"
-                        />
+                    onChange={([, data]) => data}
+                    render={({ field : {onChange, ...props}}) => (
+                        
+
+                    <Autocomplete
+                        id="search-celeb"
+                        freeSolo
+                        open={open}
+                        onOpen={() => {
+                            setOpen(true);
+                        }}
+                        onClose={() => {
+                            setOpen(false);
+                        }}
+                        isOptionEqualToValue={(option, value) => option.name === value.name}
+                        //getOptionLabel={(option) => option.name}
+                        options={options}
+                        loading={loading}
+                        onChange={(e, data) => onChange(data)}
+                        {...props}
+                        value={props.value || null}
+
+                        renderInput={(params, field) => (
+                            <TextField   
+                                {...params}   
+                                
+                               
+                                size="small"
+                                className="text-field w-input"
+                                //onBlur={onBlur}
+                                
+                                //size="small"
+                                InputProps={{
+                                    ...params.InputProps,
+                                    endAdornment: (
+                                        <React.Fragment>
+                                            {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                                            {params.InputProps.endAdornment}
+                                        </React.Fragment>
+                                    )
+                                }}
+                                //selected={value}
+                                //className="text-field w-input"
+                            />
+                        )}
+                    />
                         
                         
                     )}
@@ -66,13 +155,13 @@ const SearchCeleb = ({user, userChart, matchData}) => {
               </div>
             </form>
 
-            {state === "ERR_BAD_REQUEST" &&
+            {errorState === "ERR_BAD_REQUEST" &&
             (
               <div className="container w-form-fail">Celebrity can&#x27;t be found as entered. <br/>
               <br/><center><Link to="/addCeleb" className="link-5">Add Celebrity</Link></center>
               </div>
             )}
-            {state === "ERR_NETWORK" &&
+            {errorState === "ERR_NETWORK" &&
             (
                 <div className="w-layout-cell w-form-fail">
                     Unable to connect to data service

@@ -65,8 +65,9 @@ const PlacesAutocomplete = ({control, name, field, ...rest}) => {
 <Controller
     name={name}
     control={control}
+    defaultValue=""
     rules={{ required: "Birth location is required (if exact city is nto listed, select closest city avaliable)" }}
-    render={({ field }) => (
+    render={({ field, ...props }) => (
     <Autocomplete
           {...field}
           
@@ -80,7 +81,8 @@ const PlacesAutocomplete = ({control, name, field, ...rest}) => {
           autoComplete
           includeInputInList
           filterSelectedOptions
-          value={value}
+          value={value} 
+          //value={value}
           onChange={(event, newValue) => {
             setOptions(newValue ? [newValue, ...options] : options);
             setValue(newValue);
@@ -93,7 +95,8 @@ const PlacesAutocomplete = ({control, name, field, ...rest}) => {
             setInputValue(newInputValue);
           }}
           renderInput={(params) => (
-            <TextField {...rest} {...params} variant="outlined" fullWidth error={networkError} helperText={networkError ? "Unable to connect to data service" : ""}/>
+            <TextField 
+            {...rest} {...params} variant="outlined" fullWidth error={networkError} helperText={networkError ? "Unable to connect to data service" : ""}/>
           )}
           
           renderOption={console.log(options)}
