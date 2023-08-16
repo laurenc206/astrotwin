@@ -80,14 +80,14 @@ const MatchResult = () => {
       </div>
     </div>
     <MatchHeader user={user} match={match}/>
-    
+    <div className="row_spacer"/>
     <MatchRow planet = "Sun" icon = {SunIcon} userData={userChart.get("Sun")} celebData={celebChart?.get("Sun")} planetMeaning={planetMeanings.sun} planetImg={SunPlanet}/>
     <div className="row_spacer"/>
     
     <MatchRow planet = "Moon" icon = {MoonIcon} userData={userChart.get("Moon")} celebData={celebChart?.get("Moon")} planetMeaning={planetMeanings.moon} planetImg={MoonPlanet}/>
     <div className="row_spacer"/>
     
-    <MatchRow planet = "Ascendant" icon = {AscendantIcon} userData={userChart.get("Ascendant")} celebData={celebChart?.get("Ascendant")} planetMeaning={planetMeanings.ascendant} planetImg={AscendantPlanet}/>
+    <MatchRow planet = "Ascendant" icon = {AscendantIcon} userData={userChart.get("Ascendant")} celebData={celebChart?.get("Ascendant")} planetMeaning={planetMeanings.ascendant} planetImg=""/>
     <div className="row_spacer"/>
     
     <MatchRow planet = "Mars" icon = {MarsIcon} userData={userChart.get("Mars")} celebData={celebChart?.get("Mars")} planetMeaning={planetMeanings.mars} planetImg={MarsPlanet}/>

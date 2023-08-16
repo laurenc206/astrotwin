@@ -88,7 +88,7 @@
   grid-auto-columns: 1fr;
   justify-content: center;
   
-  padding-bottom: 20px;
+  padding-bottom: 0px;
 }
 .quick-stack-14 {
   grid-column-gap: 25px;
@@ -97,9 +97,24 @@
 .w-layout-layoutb {
   grid-row-gap: 20px;
   grid-column-gap: 20px;
+
+  
+  padding-left: 70px;
+  padding-right: 70px;
+  padding-top:5px;
+}
+
+.cell-3b {
+  padding-bottom:10px;
+  padding-top: 10px;
+}
+.w-layout-layoutc {
+  grid-row-gap: 20px;
+  grid-column-gap: 40px;
   grid-auto-columns: 1fr;
   justify-content: center;
-  padding: 0px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 .w-layout-cell {
@@ -256,6 +271,15 @@
 @media screen and (max-width: 767px) {
   .w-layout-blockcontainer {
     max-width: none;
+  }
+
+  .w-layout-layoutb {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+  .cell-3b {
+    padding-bottom:5px;
+    padding-top: 5px;
   }
 }
 
@@ -555,10 +579,11 @@ figcaption {
 }
 .row_spacer {
   height: 1px;
-  margin-left: 80px;
-  margin-right: 80px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-left: 60px;
+  margin-right: 60px;
+  margin-bottom: 10px;
+  margin-top:10px;
+  margin-bottom: 10px;
   background-color: #e7ecf0;
 }
 
@@ -2229,7 +2254,10 @@ figcaption {
 .quick-stack-5 {
   padding-top: 3px;
   padding-left: 3px;
+  object-fit: fill;
+  
 }
+
 
 .quick-stack-6 {
   padding: 3px;
@@ -2248,9 +2276,11 @@ figcaption {
 .quick-stack-8 {
   grid-column-gap: 20px;
   grid-row-gap: 0px;
-  padding-left: 60px;
-  padding-right: 60px;
+  
 }
+
+
+
 
 .cell {
   align-items: stretch;
@@ -2262,12 +2292,13 @@ figcaption {
 
 .cell-2 {
   align-items: stretch;
-  padding: 10px;
-
+  padding-left: 20px;
+  padding-right:20px;
 }
 .cell-2b {
   align-items: stretch;
-  padding: 0px;
+  padding-left: 0px;
+  padding-right:0px;
 }
 
 .cell-3 {
@@ -2283,7 +2314,7 @@ figcaption {
 .quick-stack-11 {
   grid-row-gap: 3px;
   align-self: stretch;
-  padding: 0;
+  padding: 10px;
 }
 
 .cell-4, .cell-5 {
@@ -2315,6 +2346,7 @@ figcaption {
 }
 
 .cell-9 {
+  margin-top: 20px;
   padding-left: 0px;
 }
 
@@ -2693,7 +2725,7 @@ figcaption {
   }
 
   .section.daek-page-header, .section.light-page-header {
-    padding-top: 80px;
+    padding-top: 60px;
     padding-bottom: 16px;
   }
 
@@ -2981,8 +3013,8 @@ figcaption {
   }
 
   .w-layout-layoutc {
-    padding-left:10px;
-    padding-right:10px;
+    padding-left:0px;
+    padding-right:0px;
     grid-column-gap: 5px;
   }
 
@@ -3204,14 +3236,28 @@ figcaption {
 
   .quick-stack-8 {
     grid-column-gap: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
+    
+  }
+
+  
+
+  .w-layout-layoutb {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .cell-3b {
+    padding-bottom:0px;
+    padding-top: 0px;
   }
 
   .cell-2 {
     align-items: stretch;
-    padding-left: 0;
-    padding-right: 0;
+ 
+  }
+  .cell-2b {
+    align-items: stretch;
+    padding-left:10px;
+    
   }
 
   .quick-stack-10 {
@@ -3358,6 +3404,11 @@ figcaption {
 #w-node-acfb0cfc-423c-6793-641c-9f45e3b8d21a-e3b8d21a {
   grid-template-rows: auto auto auto auto auto auto auto auto auto auto auto auto auto;
   grid-template-columns: 1fr 1fr;
+}
+
+#w-node-acfb0cfc-423c-6793-641c-9f45e3b8d21a-e3b8d21ab {
+  grid-template-rows: auto auto auto auto auto auto auto auto auto auto auto auto auto;
+  
 }
 
 #w-node-acfb0cfc-423c-6793-641c-9f45e3b8d21b-e3b8d21a {
@@ -3529,6 +3580,9 @@ figcaption {
 #w-node-acfb0cfc-423c-6793-641c-9f45e3b8d297-e3b8d21a {
   grid-template-rows: auto auto;
   grid-template-columns: .25fr 1fr;
+}
+#w-node-acfb0cfc-423c-6793-641c-9f45e3b8d22e-e3b8d21ac {
+  grid-template-columns: auto auto;
 }
 
 #w-node-acfb0cfc-423c-6793-641c-9f45e3b8d298-e3b8d21a {
@@ -3724,8 +3778,8 @@ figcaption {
 }
 
 #w-node-acfb0cfc-423c-6793-641c-9f45e3b8d323-e3b8d21a {
-  grid-template-rows: auto auto;
-  grid-template-columns: .25fr 1fr;
+ 
+  grid-template-columns: auto minmax(auto, 1fr);
 }
 
 #w-node-acfb0cfc-423c-6793-641c-9f45e3b8d324-e3b8d21a {
@@ -3738,7 +3792,7 @@ figcaption {
 
 #w-node-acfb0cfc-423c-6793-641c-9f45e3b8d32d-e3b8d21a {
   grid-template-rows: auto auto;
-  grid-template-columns: .25fr 1fr;
+  grid-template-columns:  .25fr minmax(auto, 1fr);
 }
 
 #w-node-acfb0cfc-423c-6793-641c-9f45e3b8d32e-e3b8d21a {
