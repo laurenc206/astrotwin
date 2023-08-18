@@ -11,9 +11,10 @@ import ErrorMsg from './ErrorMsg';
 
 const CreateChartForm = ({createUser, user}) => {
     
-    const { control, handleSubmit, formState: {isSubmitting}} = useForm()
+    const { control, handleSubmit, formState: {isSubmitting, errors}} = useForm()
     const [dbError, setDbError] = useState()
-    const [formErrors, setFormErrors] = useState()
+    const [dateError, setDateError] = useState()
+    
 
 
     const onSubmit = (data, e) => {
@@ -26,12 +27,13 @@ const CreateChartForm = ({createUser, user}) => {
             setDbError("Database not avaliable")
         })
     };
-    const onError = (formErrors, e) => {
-        console.log(formErrors)
-        setFormErrors(formErrors)
+
+
+    const onError = (e) => {
+        console.log("e " + JSON.stringify(e))
+        console.log("errors " + JSON.stringify(errors))   
     }
 
-    
 
     return (
       <>
@@ -48,16 +50,19 @@ const CreateChartForm = ({createUser, user}) => {
                         onChange={onChange}
                         onBlur={onBlur}
                         selected={value}
-                        
+                        error={errors.Name ? true : false}
+                        size="small"
+                        className="text-field w-input"
                         />
                     )}
                 />
-            {formErrors?.Name?.type === 'required' && (<text className="text-required">*required</text>)}
+                {errors.Name  && (<div className='errorHelperText'>required</div>)}
+            
             </div>
             
             <div className="field-block"><label htmlFor="Location">Birth Location: </label>
-                <PlacesAutocomplete name="Location" control={control}/>
-            {formErrors?.Location?.type === 'required' && (<text className="text-required">*required (if no exact location is avalible, select nearest avaliable city)</text>)}
+                <PlacesAutocomplete name="Location" control={control} errors={errors}/>
+
             </div>
 
             <div className="field-block"><label htmlFor="Date">Birth Date:</label>
@@ -66,19 +71,31 @@ const CreateChartForm = ({createUser, user}) => {
                     control={control}
                     name="Date"
                     rules={{ required: "Birth Date is required" }}
-                    render={({ field: {onChange, onBlur, value, ref} }) => (
+                    
+                    render={({ field: {onChange, onBlur, value, ref}, formState: {errors} }) => (
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DateTimePicker      
+                    <DateTimePicker    
+                      
                         value={value}
                         onChange={onChange}
                         onBlur={onBlur}
-                        
+                        onError={(newError)=> setDateError(newError)}
+                        slotProps={{
+                            textField: {
+                                error: errors.Date || dateError ? true : false,
+                                size: "small",
+                                className: "text-field w-input"
+                                
+                            }
+                            
+                        }}
                     />
                     </LocalizationProvider>
                     )}
                 />
-
-            {formErrors?.Date?.type === 'required' && (<text className="text-required">*required </text>)}
+                {errors.Date  && (<div className='errorHelperText'>required</div>)}
+                {dateError  && (<div className='errorHelperText'>Invalid date</div>)}
+           
             <div className="spacer _16"></div>  
 
             <input type="submit" value="Find Celebrity AstroTwin" className="button w-button" disabled={isSubmitting}/>

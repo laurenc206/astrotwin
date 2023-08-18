@@ -1029,11 +1029,7 @@ figcaption {
   font-size: 18px;
 }
 
-.text-required {
-  
-  font-size: 14px;
-  padding-bottom:10px
-}
+
 
 .paragraph.small {
   opacity: .75;
@@ -1212,6 +1208,20 @@ figcaption {
   color: #cbd5df;
 }
 
+.errorHelperText {
+  color: #d32f2f;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.66;
+  letter-spacing: 0.03333em;
+  text-align: left;
+  margin-top: 0px;
+  margin-right: 14px;
+  margin-bottom: 0;
+  margin-left: 7px;
+  background-color: white;
+}
 
 
 .text-field:focus {
@@ -1884,7 +1894,6 @@ figcaption {
 .title-tag {
   color: #99a4af;
   margin-bottom: 12px;
-  font-size: 50px;
   font-weight: 500;
 }
 

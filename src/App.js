@@ -11,6 +11,7 @@ import ModifyVars from './components/modifyVars/ModifyVars';
 import SearchCeleb from './components/searchCeleb/SearchCeleb';
 import ResultCeleb from './components/searchCeleb/ResultCeleb';
 import AddCeleb from './components/searchCeleb/AddCeleb';
+import ContactMe from './components/contactMe/ContactMe';
 
 function App() {
   const initVars = {
@@ -128,6 +129,7 @@ function App() {
           <Route path="/searchCeleb" element={<SearchCeleb user={user} userChart={userChart} matchData={matchData}/>}></Route>
           <Route path="/resultCeleb" element={<ResultCeleb/>}></Route>
           <Route path="/addCeleb" element={<AddCeleb user={user} userChart={userChart} getMatchData={getMatchData} setVarsUpdated={setVarsUpdated} matchData={matchData}/>}></Route>
+          <Route path="/contactMe" element={<ContactMe/>}/>
         </Route>
       </Routes>
     <Footer user={user} vars={vars} setVars={setVars}/>

@@ -7,7 +7,7 @@ import {Controller} from 'react-hook-form'
 import api from '../../api/axiosConfig';
 
 
-const PlacesAutocomplete = ({control, name, field, ...rest}) => {
+const PlacesAutocomplete = ({control, name, errors, field, ...rest}) => {
   const [value, setValue] = React.useState();
   const [inputValue, setInputValue] = React.useState("");
   const [options, setOptions] = React.useState([]);
@@ -66,7 +66,7 @@ const PlacesAutocomplete = ({control, name, field, ...rest}) => {
     name={name}
     control={control}
     defaultValue=""
-    rules={{ required: "Birth location is required (if exact city is nto listed, select closest city avaliable)" }}
+    rules={{ required: "Birth location is required (if exact city is not listed, select closest city avaliable)" }}
     render={({ field, ...props }) => (
     <Autocomplete
           {...field}
@@ -96,14 +96,23 @@ const PlacesAutocomplete = ({control, name, field, ...rest}) => {
           }}
           renderInput={(params) => (
             <TextField 
-            {...rest} {...params} variant="outlined" fullWidth error={networkError} helperText={networkError ? "Unable to connect to data service" : ""}/>
+              {...rest} 
+              {...params} 
+              variant="outlined" 
+              fullWidth 
+              error={networkError || errors.Location ? true : false}
+              size= "small"
+              className="text-field w-input"
+              />
           )}
           
           renderOption={console.log(options)}
     />
     )}
 />
+{errors.Location  && (<div className='errorHelperText'>required (if no exact location is avalible, select nearest avaliable city)</div>)}
       </>  
+
   );
 };
 

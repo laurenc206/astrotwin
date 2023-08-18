@@ -32,7 +32,7 @@ const Chart = ({user, getUserData, userChart, getMatchData, matchData}) => {
         <div className="w-layout-layoutd">
       <h1 className="heading-6">{user?.userData.name}'s Chart</h1>
       </div>
-        <div id="w-node-_7bd82a61-f2bf-f4e9-7606-b93c41b6337c-52a0fb91" className="w-layout-layoutc quick-stack-14 wf-layout-layout">
+        <div id="w-node-_7bd82a61-f2bf-f4e9-7606-b93c41b6337c-52a0fb91" className="w-layout-layout quick-stack-14 wf-layout-layout">
           <div id="w-node-_7bd82a61-f2bf-f4e9-7606-b93c41b6337d-52a0fb91" className="w-layout-cell">
             
           </div>
@@ -72,7 +72,7 @@ const Chart = ({user, getUserData, userChart, getMatchData, matchData}) => {
       
     </div>
     <div className="w-layout-blockcontainer w-container ">
-          <div id="w-node-_2f42e6ca-4915-5d6b-8edb-e32aaf22ad6b-af22ad6b" className="w-layout-layoutc wf-layout-layout">
+          <div id="w-node-_2f42e6ca-4915-5d6b-8edb-e32aaf22ad6b-af22ad6b" className="w-layout-layout wf-layout-layout">
             <div id="w-node-_2f42e6ca-4915-5d6b-8edb-e32aaf22ad6c-af22ad6b" className="w-layout-cell"><img src={SunIcon} loading="lazy" alt="" className="image-2"/></div>
             <div id="w-node-_2f42e6ca-4915-5d6b-8edb-e32aaf22ad6e-af22ad6b" className="w-layout-cell2">
               <div>Sun in {userChart?.get('Sun')[0]}</div>

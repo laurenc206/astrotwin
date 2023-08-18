@@ -14,7 +14,7 @@ const ModifyVarsForm = ({vars, setVars, setVarsUpdated, initVars}) => {
   },[])
   
 
-  const onSubmit = (data, e) => {
+  const onSubmit = (data) => {
     console.log("submit")
     console.log(data)
     setVars(data)

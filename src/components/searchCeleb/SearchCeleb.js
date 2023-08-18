@@ -22,6 +22,9 @@ const SearchCeleb = ({user, userChart, matchData}) => {
             setCelebData(res.data)
             setOptions(res.data)
             console.log("set celeb data " + JSON.stringify(celebData))  
+        }).catch((err) => {
+          console.log("error " + err);
+          setErrorState(err.code)
         })
     }, [])
     
