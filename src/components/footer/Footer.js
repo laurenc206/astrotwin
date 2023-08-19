@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ModifyVars from '../modifyVars/ModifyVars';
+
 
 const Footer = ({user, vars, setVars}) => {
     return (
@@ -18,9 +18,9 @@ const Footer = ({user, vars, setVars}) => {
             </div>
             <div className="footer-links-container">
             <h5 className="footer-header">Resources</h5>
-            <a href="../../my-pages/about.html" className="footer-link">About This Project</a>
+            <a href="../../about" className="footer-link">About This Project</a>
             <a href="../../contactMe" className="footer-link">Contact Me</a>
-            <a href="../../my-pages/chat.html" className="footer-link">Chat Board</a>
+            
             </div>
             <div className="footer-links-container">
             <h5 className="footer-header">Settings</h5>

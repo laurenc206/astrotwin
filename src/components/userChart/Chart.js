@@ -30,7 +30,7 @@ const Chart = ({user, getUserData, userChart, getMatchData, matchData}) => {
     <div className="w-layout-blockcontainer account-card w-container">
       <div className="w-layout-blockcontainer w-container">
         <div className="w-layout-layoutd">
-      <h1 className="heading-6">{user?.userData.name}'s Chart</h1>
+      <h1 className="heading-6">{user?.userData?.name}'s Chart</h1>
       </div>
         <div id="w-node-_7bd82a61-f2bf-f4e9-7606-b93c41b6337c-52a0fb91" className="w-layout-layout quick-stack-14 wf-layout-layout">
           <div id="w-node-_7bd82a61-f2bf-f4e9-7606-b93c41b6337d-52a0fb91" className="w-layout-cell">
@@ -49,8 +49,8 @@ const Chart = ({user, getUserData, userChart, getMatchData, matchData}) => {
               </div>
               <div id="w-node-_7b178e0e-7778-3cb3-3089-661948c03a7b-52a0fb91" className="w-layout-cell">
                 <div className="text-block-12">{user?.dayStr}</div>
-                <div className="text-block-14">at {user?.timeStr}</div>
-                <div className="text-block-14">{user?.locationStr}</div>
+                <div className="text-block-12">at {user?.timeStr}</div>
+                <div className="text-block-12">{user?.locationStr}</div>
                 
               </div>
               
@@ -62,7 +62,7 @@ const Chart = ({user, getUserData, userChart, getMatchData, matchData}) => {
               {matchData && (matchData.slice(0, 3).map((c, i) =>
                 <li className="list-item-2" key={i}>
                   <Link key={i} className='link-2' to={`/matchResult`} state={{ user : user, userChart: userChart, match: c }}>
-                    {c.celeb.name} ({Math.round(c.percent)}%)
+                    {c.celeb?.name} ({Math.round(c.percent)}%)
                   </Link>
                 </li>
               ))}

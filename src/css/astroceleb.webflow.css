@@ -273,6 +273,11 @@
     max-width: none;
   }
 
+  .text-block-12{
+    font-size: smaller;
+    padding-bottom:2px;
+  }
+
   .w-layout-layoutb {
     padding-left: 60px;
     padding-right: 60px;
@@ -409,6 +414,12 @@ figcaption {
   min-height: 80vh;
   position: relative;
 }
+.page-wrapper-top-padding {
+  width: 100%;
+  min-height: 80vh;
+  padding-top: 150px;
+  position: relative;
+}
 
 .page-wrapper.light-grey {
   background-color: #f5f6f7;
@@ -419,6 +430,7 @@ figcaption {
   padding-bottom: 80px;
   position: relative;
 }
+
 .section_2 {
   padding-top: 25px;
   padding-bottom: 10px;
@@ -455,6 +467,17 @@ figcaption {
   background-image: radial-gradient(circle at 0%, rgba(255, 1, 1, .15), rgba(0, 0, 0, 0) 47%), radial-gradient(circle at 40% 130%, rgba(122, 167, 255, .41), rgba(0, 0, 0, 0) 58%);
   padding-top: 60px;
 }
+
+
+
+.black-gradient-no-padding {
+  color: #fff;
+  background-color: #1d1d1d;
+  background-image: radial-gradient(circle at 0%, rgba(255, 1, 1, .15), rgba(0, 0, 0, 0) 47%), radial-gradient(circle at 40% 130%, rgba(122, 167, 255, .41), rgba(0, 0, 0, 0) 58%);
+  padding-top: 60px;
+  position: relative;
+}
+
 
 .section.light-page-header {
   background-color: #f5f6f7;
@@ -768,6 +791,9 @@ figcaption {
   background-color: rgba(122, 167, 255, .32);
   border: 1px solid #e7ecf0;
 }
+.text-block-12 {
+  padding-bottom: 2px;
+}
 
 .color-block.soft-pink {
   background-color: rgba(239, 152, 207, .25);
@@ -1049,7 +1075,7 @@ figcaption {
 }
 
 .ds-menu-brand {
-  width: 160px;
+  width: 60px;
   margin-bottom: 50px;
   margin-left: 30px;
 }
@@ -1082,12 +1108,14 @@ figcaption {
   width: 240px;
   background-color: #1d1d1d;
   background-image: radial-gradient(circle at 0 100%, rgba(255, 1, 1, .15), rgba(0, 0, 0, 0) 43%);
-  padding-top: 40px;
+  padding-top: 64px;
   position: fixed;
-  top: 0%;
-  bottom: 0%;
+  top: auto;
+  bottom: auto;
   left: 0%;
   right: auto;
+  min-height: 100%;
+  z-index: 0;
   overflow: auto;
 }
 
@@ -1176,13 +1204,14 @@ figcaption {
 .ds-section {
   z-index: 0;
   text-align: left;
-  padding: 60px 80px 48px 60px;
+  padding: 160px 80px 0px 60px;
   position: relative;
 }
 
 .ds-section.header {
   color: #1d1d1d;
   background-color: #f5f6f7;
+  margin-top: -100px;
 }
 
 .ds-title {
@@ -1191,7 +1220,7 @@ figcaption {
 }
 
 .ds-section-header {
-  margin-bottom: 50px;
+  margin-bottom: 0px;
 }
 
 .text-field {
@@ -1322,7 +1351,7 @@ figcaption {
 }
 
 .ds-description {
-  max-width: 400px;
+  max-width: 500px;
   color: #626a72;
 }
 
@@ -2142,30 +2171,31 @@ figcaption {
 
 .account-card {
   width: 100%;
-  max-width: 900px;
+  max-width: 800px;
   color: #1d1d1d;
   background-color: #fff;
   border-radius: 12px;
-  padding-top: 20px;
-  padding-bottom:20px;
-  padding-left: 40px;
-  padding-right: 40px;
-  
+  padding-left: 60px;
+  padding-right: 60px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .account-page-wrapper {
-  width: 100vw;
-  height: 80vh;
+
   max-height: 100%;
   max-width: 100%;
-  min-height: 650px;
   color: #fff;
   background-color: #e7ecf0;
   background-image: radial-gradient(circle at 50% 0, rgba(239, 152, 207, .2), rgba(0, 0, 0, 0) 57%), radial-gradient(circle at 0 20%, rgba(122, 167, 255, .25), rgba(0, 0, 0, 0) 42%);
   justify-content: center;
   align-items: center;
-  padding: 20px;
   display: flex;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 50px;
+  padding-bottom:50px;
+  
 }
 
 .form-2-grid {
@@ -2574,7 +2604,9 @@ figcaption {
     left: 0%;
     right: auto;
   }
-
+  .ds-menu-link {
+    color: #495158;
+  }
   .ds-nav {
     z-index: 10;
     width: 100%;
@@ -2583,6 +2615,7 @@ figcaption {
     position: sticky;
     bottom: auto;
     left: auto;
+    top: 70px;
     overflow: visible;
   }
 
@@ -2651,7 +2684,7 @@ figcaption {
   }
 
   .ds-menu-button.w--open {
-    background-color: yellow;
+    background-color: #197dff;
     border-radius: 40px;
   }
 
@@ -2816,6 +2849,9 @@ figcaption {
     padding-top: 13px;
     padding-bottom: 13px;
     font-size: 16px;
+  }
+  .account-card {
+    padding: 30px 30px;
   }
 
   .nav-dropdown:hover {
@@ -3000,16 +3036,6 @@ figcaption {
   }
 
   
-
-  .account-page-wrapper {
-    
-    padding-top: 20px;
-    padding-bottom:20px;
-    padding-right: 20px;
-    padding-left:20px;
-    min-height: 780px;
-  }
-  
 }
 
 @media screen and (max-width: 479px) {
@@ -3019,6 +3045,9 @@ figcaption {
     padding-bottom:40px;
     padding-right: 20px;
     padding-left:20px;
+  }
+  .ds-nav {
+    top: 64px;
   }
 
   .w-layout-layoutc {
@@ -3031,11 +3060,10 @@ figcaption {
     padding-left:10px;
     padding-right:10px;
   }
-  .text-block-14 {
-    font-size: smaller;
-  }
+
   .text-block-12{
     font-size: smaller;
+    padding-bottom:2px;
   }
 
   body {
@@ -3220,13 +3248,10 @@ figcaption {
 
   .account-card {
     padding: 10px 10px;
+    padding-top: 20px;
   }
 
-  .account-page-wrapper {
-    
-    height: 90vh;
-    max-height: 120%;
-  }
+
 
   .form-2-grid {
     grid-template-columns: 1fr;

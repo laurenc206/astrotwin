@@ -14,10 +14,10 @@ const CreateChartForm = ({createUser, user}) => {
     const { control, handleSubmit, formState: {isSubmitting, errors}} = useForm()
     const [dbError, setDbError] = useState()
     const [dateError, setDateError] = useState()
+    const [submitting, setSubmitting] = useState(false)
     
-
-
     const onSubmit = (data, e) => {
+        setSubmitting(true)
         console.log(data)
         createUser(data)
         
@@ -98,7 +98,7 @@ const CreateChartForm = ({createUser, user}) => {
            
             <div className="spacer _16"></div>  
 
-            <input type="submit" value="Find Celebrity AstroTwin" className="button w-button" disabled={isSubmitting}/>
+            <input type="submit" value="Find Celebrity AstroTwin" className="button w-button" disabled={submitting}/>
 
             </div>
 

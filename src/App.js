@@ -12,6 +12,7 @@ import SearchCeleb from './components/searchCeleb/SearchCeleb';
 import ResultCeleb from './components/searchCeleb/ResultCeleb';
 import AddCeleb from './components/searchCeleb/AddCeleb';
 import ContactMe from './components/contactMe/ContactMe';
+import About from './components/about/About';
 
 function App() {
   const initVars = {
@@ -102,6 +103,7 @@ function App() {
       const response = await api.post(`/api/v1/user/getMatchList`, matchParams);
       setMatches(response.data);
       setVarsUpdated(false)
+      console.log("MATCHES " + JSON.stringify(matchData))
       return response
     } catch (err){
       console.log(err);
@@ -130,6 +132,7 @@ function App() {
           <Route path="/resultCeleb" element={<ResultCeleb/>}></Route>
           <Route path="/addCeleb" element={<AddCeleb user={user} userChart={userChart} getMatchData={getMatchData} setVarsUpdated={setVarsUpdated} matchData={matchData}/>}></Route>
           <Route path="/contactMe" element={<ContactMe/>}/>
+          <Route path="/about" element={<About/>}></Route>
         </Route>
       </Routes>
     <Footer user={user} vars={vars} setVars={setVars}/>

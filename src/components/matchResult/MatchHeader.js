@@ -44,9 +44,9 @@ const MatchHeader = ({user, match}) => {
               <div id="w-node-acfb0cfc-423c-6793-641c-9f45e3b8d22f-e3b8d21a" className="w-layout-cell cell-2b"><h6>Born:</h6></div>   
               <div id="w-node-acfb0cfc-423c-6793-641c-9f45e3b8d235-e3b8d21a" className="w-layout-cell">
                   <p>
-                  <div className="text-block-12"><small>{user?.dayStr}</small></div>
-                  <div className="text-block-12"><small>at {user?.timeStr}</small></div>
-                  <div className="text-block-12"><small>{user?.locationStr}</small></div>
+                  <div className="text-block-12">{user?.dayStr}</div>
+                  <div className="text-block-12">at {user?.timeStr}</div>
+                  <div className="text-block-12">{user?.locationStr}</div>
                   </p>
               </div>
             </div>
@@ -58,9 +58,9 @@ const MatchHeader = ({user, match}) => {
               <div id="w-node-acfb0cfc-423c-6793-641c-9f45e3b8d22f-e3b8d21a" className="w-layout-cell cell-2b"><h6>Born:</h6></div>   
               <div id="w-node-acfb0cfc-423c-6793-641c-9f45e3b8d235-e3b8d21a" className="w-layout-cell">
                   <p>
-                  <div className="text-block-12"><small>{`${celebBday.toLocaleString('default', {month: 'long'})} ${celebBday.getDate()}, ${celebBday.getFullYear()}`}</small></div>
-                  <div className="text-block-12"><small>{`at ${celebBday.toLocaleString('default', { hour: 'numeric', minute: 'numeric', hour12: true })}`}</small></div>
-                  <div className="text-block-12"><small>{`${match?.celeb.blocation.town}, ${match?.celeb.blocation.country}`}</small></div>
+                  <div className="text-block-12">{`${celebBday.toLocaleString('default', {month: 'long'})} ${celebBday.getDate()}, ${celebBday.getFullYear()}`}</div>
+                  <div className="text-block-12">{`at ${celebBday.toLocaleString('default', { hour: 'numeric', minute: 'numeric', hour12: true })}`}</div>
+                  <div className="text-block-12">{`${match?.celeb.blocation.town}, ${match?.celeb.blocation.country}`}</div>
                   </p>
               </div>
             </div>
