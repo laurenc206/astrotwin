@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-const Footer = ({user, vars, setVars}) => {
+const Footer = ({user}) => {
     return (
     <div className="footer wf-section">
         <div className="footer-container w-container">
@@ -18,8 +18,8 @@ const Footer = ({user, vars, setVars}) => {
             </div>
             <div className="footer-links-container">
             <h5 className="footer-header">Resources</h5>
-            <a href="../../about" className="footer-link">About This Project</a>
-            <a href="../../contactMe" className="footer-link">Contact Me</a>
+            <Link to="/about" className="footer-link">About This Project</Link>
+            <Link to="/contactMe" className="footer-link">Contact Me</Link>
             
             </div>
             <div className="footer-links-container">

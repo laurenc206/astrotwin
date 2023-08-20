@@ -135,7 +135,7 @@ function App() {
           <Route path="/about" element={<About/>}></Route>
         </Route>
       </Routes>
-    <Footer user={user} vars={vars} setVars={setVars}/>
+    <Footer user={user}/>
     </div>
 </>
   );
