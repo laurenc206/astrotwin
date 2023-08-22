@@ -55,14 +55,14 @@ const ResultCeleb = () => {
                   <h6>Born:</h6>
                 </div>
                 <div id="w-node-_7353c4b0-05c9-aef4-9829-6b9a74915ea6-781602bd" className="w-layout-cell">
-                  <div>{`${celebBday.toLocaleString('default', {month: 'long'})} ${celebBday.getDate()}, ${celebBday.getFullYear()} ${celebBday.toLocaleString('default', { hour: 'numeric', minute: 'numeric', hour12: true })}` }</div>
-                  <div className="w-layout-blockcontainer container-10 w-container"></div>
-                  <div>{`${celeb?.blocation.town}, ${celeb?.blocation.country}`}</div>
+                  <div className="text-block-12">{`${celebBday.toLocaleString('default', {month: 'long'})} ${celebBday.getDate()}, ${celebBday.getFullYear()}` }</div>
+                  <div className="text-block-12">{`at ${celebBday.toLocaleString('default', { hour: 'numeric', minute: 'numeric', hour12: true })}`}</div>
+                  <div className="text-block-12">{`${celeb?.blocation.town}, ${celeb?.blocation.country}`}</div>
                 </div>
               </div>
             </div>
           </div>
-          <div id="w-node-_2f42e6ca-4915-5d6b-8edb-e32aaf22ad6b-af22ad6b" className="w-layout-layout chart wf-layout-layout">
+          <div id="w-node-_2f42e6ca-4915-5d6b-8edb-e32aaf22ad6b-af22ad6b" className="w-layout-layoutceleb chart wf-layout-layout">
             <div id="w-node-_2f42e6ca-4915-5d6b-8edb-e32aaf22ad6c-af22ad6b" className="w-layout-cell"><img src={SunIcon} loading="lazy" alt="" className="image-2"/></div>
             <div id="w-node-_2f42e6ca-4915-5d6b-8edb-e32aaf22ad6e-af22ad6b" className="w-layout-cell">
               <div>Sun in {celebChart?.get("Sun")[0]}</div>

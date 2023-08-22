@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-
+import AboutText from './AboutText';
 const About = () => {
     const sections = [
         {
@@ -25,8 +25,8 @@ const About = () => {
             link: '#Version 2'
         },
         {
-            title: 'Sources',
-            link: '#Sources'
+            title: 'Resources',
+            link: '#Resources'
         }
     ]
 
@@ -38,7 +38,7 @@ const About = () => {
     const handleClose = () => {
       setAnchorEl(null);
     };
-
+   
     return (
         <>
         
@@ -81,48 +81,8 @@ const About = () => {
               </div>
             </div>
           </div>
-          <section id="Technologies Used" className="ds-section">
-            <div className="ds-section-header">
-            <h3 className="ds-title">Technologies Used</h3>
-            <p className="ds-description">The different text sizes used throughout the site. </p>
-            </div>
-          </section>
 
-          <section id="Motivation" className="ds-section">
-            <div className="ds-section-header">
-            <h3 className="ds-title">Motivation</h3>
-            <p className="ds-description"> The different text sizes used throughout the site.</p>
-            </div>
-          </section>
-
-          <section id="How It Works" className="ds-section">
-            <div className="ds-section-header">
-            <h3 className="ds-title">How It Works</h3>
-            <p className="ds-description">The different text sizes used throughout the site. </p>
-            </div>
-          </section>
-
-          <section id="Version 1" className="ds-section">
-            <div className="ds-section-header">
-            <h3 className="ds-title">Version 1</h3>
-            <p className="ds-description">The different text sizes used throughout the site. </p>
-            </div>
-          </section>
-
-          <section id="Version 2" className="ds-section">
-            <div className="ds-section-header">
-            <h3 className="ds-title">Version 2</h3>
-            <p className="ds-description">The different text sizes used throughout the site. </p>
-            </div>
-          </section>
-
-          <section id="Sources" className="ds-section">
-            <div className="ds-section-header">
-            <h3 className="ds-title">Sources</h3>
-            <p className="ds-description">The different text sizes used throughout the site. </p>
-            </div>
-          </section>
-
+          <AboutText/>
  
 
 

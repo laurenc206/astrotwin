@@ -27,7 +27,7 @@ const Header = ({user}) => {
               
             </div>
           </nav>
-          <div className="menu-button w-nav-button"><img src="../../images/Menu-Icon.svg" loading="lazy" width="24" alt="" className="menu-icon"/></div>
+
         </div>
     </div>
       </>

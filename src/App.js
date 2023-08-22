@@ -16,21 +16,21 @@ import About from './components/about/About';
 
 function App() {
   const initVars = {
-    Sun: 3.0,
-    Moon: 3.0,
-    Ascendant: 2.0,
-    Mars: 1.5,
-    Venus: 1.5,
-    Mercury: 1.5,
-    Jupiter: .5,
-    Saturn: .5,
+    Sun: 4.0,
+    Moon: 4.0,
+    Ascendant: 3.0,
+    Mars: 2.0,
+    Venus: 2.0,
+    Mercury: 2.0,
+    Jupiter: 1,
+    Saturn: 1,
     Uranus: .5,
-    Neptune: .25,
-    Pluto: .25,
-    Zodiac: 1.0,
-    Element: .5,
-    Mode: .25,
-    House: 1.2
+    Neptune: .1,
+    Pluto: .1,
+    Zodiac: 2.5,
+    Element: 1,
+    Mode: .5,
+    House: 1
   }
   
   const [user, setUser] = useState();

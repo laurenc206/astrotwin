@@ -41,14 +41,14 @@ const MatchResult = () => {
 //https://www.horoscope.com/us/planets/index.html
   const planetMeanings = {
     sun: "Identity & ego", 
-    moon: "Inner emotional life",
-    mercury: "Communication",
-    venus: "Love, beauty & money",
+    moon: "Emotions & instincts",
+    mercury: "Communication & the mind",
+    venus: "Love & pleasure",
     mars: "Assertiveness & aggression",
     jupiter: "Luck & opportunity",
-    saturn: "Responsibility, time & routine",
+    saturn: "Discipline & limitation",
     uranus: "Individuality & revolution",
-    neptune: "Dreams, healing & intuition",
+    neptune: "Spirituality & illusion",
     pluto: "Transformation & rebirth",
     ascendant: "Social personality"
   }
