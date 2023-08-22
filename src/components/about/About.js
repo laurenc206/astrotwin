@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import AboutText from './AboutText';
+import TechnologiesUsed from './sections/TechnologiesUsed.js';
+import Motivation from './sections/Motivation.js';
+import HowItWorks from './sections/HowItWorks.js'
+import VersionOne from './sections/VersionOne.js';
+import VersionTwo from './sections/VersionTwo.js';
+import Resources from './sections/Resources.js';
+
 const About = () => {
     const sections = [
         {
@@ -82,9 +88,17 @@ const About = () => {
             </div>
           </div>
 
-          <AboutText/>
- 
+          <TechnologiesUsed/>
 
+          <Motivation/>
+
+          <HowItWorks/>
+
+          <VersionOne/>
+
+          <VersionTwo/>
+
+          <Resources/>
 
         </div>
     </div>  
