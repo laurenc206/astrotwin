@@ -42,15 +42,15 @@ function App() {
   const navigate = useNavigate();
 
   const createUser = async (userData) => {
-    //console.log("userData: " + JSON.stringify(userData))
-    let locIdentifier = userData.Location.countryCode == "US" || 
-                        userData.Location.countryCode == "CA" ?
-                        userData.Location.adminCodes1.ISO3166_2 :
-                        userData.Location.countryCode;
+    console.log("userData: " + JSON.stringify(userData))
+    let locIdentifier = userData.Location.shortCountry == "US" || 
+                        userData.Location.shortCountry == "CA" ?
+                        userData.Location.shortRegion :
+                        userData.Location.shortCountry;
 
     let loc = {town: userData.Location.name, 
-               region: userData.Location.adminName1,
-               country: userData.Location.countryName,
+               region: userData.Location.longRegion,
+               country: userData.Location.longCountry,
                code: locIdentifier}
 
     let utcDate = new Date(userData.Date)
@@ -58,7 +58,7 @@ function App() {
     
     let userForm = {name: userData.Name, date: convertUTCDateToLocalDate(utcDate).toISOString(), location:loc}
     try {
-      //console.log("userForm: " + JSON.stringify(userForm))
+      console.log("userForm: " + JSON.stringify(userForm))
       const response = await api.post("api/v1/user", userForm) 
       const data = response.data;
       setUser(data);
@@ -114,7 +114,7 @@ function App() {
     if (user && varsUpdated) getMatchData(user.chartId)
   }, [varsUpdated])
 
-  console.log("vars updated " + varsUpdated);
+  //console.log("vars updated " + varsUpdated);
 
   return (
     <>

@@ -70,7 +70,6 @@ const PlacesAutocomplete = ({control, name, errors, field, ...rest}) => {
     render={({ field, ...props }) => (
     <Autocomplete
           {...field}
-          
           id="Location"
           getOptionLabel={(option) =>
             typeof option === "string" ? option : `${option.name}, ${option.adminName1}, ${option.countryName}`

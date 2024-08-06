@@ -1,5 +1,6 @@
 
 import CreateChartForm from "./CreateChartForm"
+import GoogleAutoComplete from "./GoogleAutoComplete";
 
 
 const CreateChart = ({createUser, user}) => {
@@ -18,7 +19,7 @@ const CreateChart = ({createUser, user}) => {
                     
                     <CreateChartForm createUser={createUser} user={user}/>
 
-                
+           
                     </div>
                     </div>
                 </div>            

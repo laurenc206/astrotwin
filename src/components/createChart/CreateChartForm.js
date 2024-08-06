@@ -1,31 +1,46 @@
-
-import PlacesAutocomplete from './PlacesAutoComplete';
 import { Controller, useForm } from 'react-hook-form'
 import { TextField } from '@mui/material';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { useEffect } from 'react';
+import axios from 'axios';
+
 import ErrorMsg from './ErrorMsg';
+import GoogleAutoComplete from './GoogleAutoComplete';
+import PlacesAutocomplete from './PlacesAutoComplete';
 
 
-const CreateChartForm = ({createUser, user}) => {
-    
+
+
+//const fetchZone = (latitude, longitude) => {
+//    const options = {
+//        method: 'GET',
+//        url: 'http://localhost:8000/zone',
+//        params: /{
+
+        //}
+   // }
+
+//}
+
+
+
+const CreateChartForm = ({createUser, user}) => { 
     const { control, handleSubmit, formState: {isSubmitting, errors}} = useForm()
     const [dbError, setDbError] = useState()
     const [dateError, setDateError] = useState()
     const [submitting, setSubmitting] = useState(false)
+    const [sessionToken, setSessionToken] = useState("")
+    const [formData, setFormData] = useState() 
+    const [locationMap, setLocationMap] = useState()
     
     const onSubmit = (data, e) => {
         setSubmitting(true)
-        console.log(data)
-        createUser(data)
-        
-        .catch((err)=> {
-            console.log("createchart database not avaliable")
-            console.log(err);
-            setDbError("Database not avaliable")
-        })
+        setFormData(data)
+        console.log("onSubmit " + data)
     };
 
 
@@ -34,6 +49,81 @@ const CreateChartForm = ({createUser, user}) => {
         console.log("errors " + JSON.stringify(errors))   
     }
 
+
+    const fetchPlace = async (placeId, sessionToken) => {
+        console.log("fetchPlace " + placeId)
+        console.log("session Token " + sessionToken)
+        const options = {
+            method: 'GET',
+            url: 'http://localhost:8000/place',
+            params: {
+                placeId: placeId,
+                sessionToken: sessionToken
+            }
+        }
+        
+        await axios.request(options).then((response) => {
+            const data = response.data
+            console.log("data " + JSON.stringify(data))
+            
+            var locationMap = {};
+            data.addressComponents.map((adr) => {
+                const type = adr.types[0]
+                const longText = adr.longText
+                const shortText = adr.shortText
+                locationMap[type] = {longText, shortText}
+            })
+            setLocationMap(locationMap)
+
+        }).catch((error) => {
+            console.error(error)
+        })   
+    }
+
+    useEffect(() => {
+        if (!sessionToken) {
+            setSessionToken(uuidv4());
+        }
+    }, [sessionToken])
+
+    useEffect(() => {  
+        async function getLocation() {
+            if (formData) {
+                fetchPlace(formData.Location.id, sessionToken)
+            }
+        }
+        
+        getLocation();   
+    }, [formData])
+
+    useEffect(() => {
+        if (locationMap) {
+            console.log('location map ' + JSON.stringify(locationMap))
+            const userData = {}
+            userData['Name'] = formData['Name']
+            userData['Date'] = formData['Date']
+            userData['Location'] = {
+                town: locationMap['locality']['longText'],
+                longRegion: locationMap['administrative_area_level_1']['longText'],
+                shortRegion: locationMap['administrative_area_level_1']['shortText'],
+                longCountry: locationMap['country']['longText'],
+                shortCountry: locationMap['country']['shortText']
+            }
+            console.log("user data " + JSON.stringify(userData))
+
+            createUser(userData).catch((err)=> {
+                   console.log("createchart database not avaliable")
+                    console.log(err);
+                    setDbError("Database not avaliable")
+            })
+        }
+
+        return () => {
+            setSessionToken("")
+            setSubmitting(false)
+        }
+
+    }, [locationMap])
 
     return (
       <>
@@ -60,9 +150,10 @@ const CreateChartForm = ({createUser, user}) => {
             
             </div>
             
-            <div className="field-block"><label htmlFor="Location">Birth Location: </label>
-                <PlacesAutocomplete name="Location" control={control} errors={errors}/>
-
+            <div className="field-block"><label htmlFor="Location">Birth Location: </label>     
+                <GoogleAutoComplete name="Location" control={control} errors={errors} sessionToken={sessionToken}/> 
+            
+               
             </div>
 
             <div className="field-block"><label htmlFor="Date">Birth Date:</label>
