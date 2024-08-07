@@ -32,10 +32,7 @@ app.post('/autocomplete', (req, res) => {
         console.error(error)
     })
 })
-//curl -X GET -H 'Content-Type: application/json' \
-//-H "X-Goog-Api-Key: YOUR_API_KEY" \
-//-H "X-Goog-FieldMask: id,displayName,accessibilityOptions,businessStatus" \
-//https://places.googleapis.com/v1/places/ChIJ_QJSSfGAhYARQVFJBNKy3HE?sessionToken=3519edfe-0f75-4a30-bfe4-7cbd89340b2c
+
 app.get("/place", (req, res) => {
     const place_id = req.query.placeId;
     const sessionToken = req.query.sessionToken;
@@ -63,5 +60,5 @@ app.get("/place", (req, res) => {
 })
 
 
-
-app.listen(process.env.PROXY_PORT, () => console.log(`Backend is running on port ${process.env.PROXY_PORT}`))
+const port = process.env.PROXY_PORT || 3001;
+app.listen(port, "0.0.0.0", () => console.log(`Backend is running on port ${port}`))
