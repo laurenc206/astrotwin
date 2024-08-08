@@ -48,7 +48,7 @@ function App() {
                         userData.Location.shortRegion :
                         userData.Location.shortCountry;
 
-    let loc = {town: userData.Location.name, 
+    let loc = {town: userData.Location.town, 
                region: userData.Location.longRegion,
                country: userData.Location.longCountry,
                code: locIdentifier}
