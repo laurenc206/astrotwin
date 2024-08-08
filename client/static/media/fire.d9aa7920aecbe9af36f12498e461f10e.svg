@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+<title>fire</title>
+<desc>Created with Sketch.</desc>
+<g fill="none" fill-rule="evenodd" stroke-linecap="round">
+<g transform="translate(11.41 11.41)" stroke="#6B6B6B" stroke-width="2">
+<circle cx="48.277" cy="48.277" r="48.277"/>
+<path d="m5.3293 69.907s-5.0158-26.333 25.706-38.559c19.75-7.8372 16.615-14.42 16.615-14.42s15.988 18.809-4.3888 38.559c-13.218 12.937 12.167 34.453 17.529 38.742" stroke-linejoin="round"/>
+<path d="m41.38 60.503s14.107 5.6428 21.631-8.7776c7.2102-14.42 2.5079-17.555 2.5079-17.555s27.9 5.6428 21.631 42.948" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>
