@@ -14,8 +14,8 @@ import NeptuneIcon from '../../images/neptune.svg';
 import PlutoIcon from '../../images/pluto.svg';
 import api from '../../api/axiosConfig'
 
-const fetchCeleb = async (celebName) => {
-  const response = await api.get(`/api/v1/celeb/search/${celebName}`)
+const fetchCeleb = async (name) => {
+  const response = await api.get(`/api/v1/celeb/search/${name}`)
   return response;
 }
 

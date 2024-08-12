@@ -4,8 +4,8 @@ import {TextField} from '@mui/material/'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const insertCeleb = async (celebName) => {
-  const response = await api.post(`/api/v1/celeb/insertCeleb/${celebName}`)
+const insertCeleb = async (name) => {
+  const response = await api.post(`/api/v1/celeb/insertCeleb/${name}`)
   return response;
 }
 
