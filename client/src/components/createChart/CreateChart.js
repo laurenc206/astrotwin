@@ -1,13 +1,8 @@
-
 import CreateChartForm from "./CreateChartForm"
 
-
-
-const CreateChart = ({createUser, user}) => {
-
-
-    return (
+const CreateChart = ({setUser, setUserChart}) => {
  
+    return (
         <div className="page-wrapper">
             <div className="section black-gradient wf-section">
                 <div className="container">
@@ -17,9 +12,8 @@ const CreateChart = ({createUser, user}) => {
                     <div className="spacer _32"></div>
                     <div className="form-card">
                     
-                    <CreateChartForm createUser={createUser} user={user}/>
+                    <CreateChartForm setUser={setUser} setUserChart={setUserChart}/>
 
-           
                     </div>
                     </div>
                 </div>            

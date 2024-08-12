@@ -14,6 +14,30 @@ import AddCeleb from './components/searchCeleb/AddCeleb';
 import ContactMe from './components/contactMe/ContactMe';
 import About from './components/about/About';
 
+const fetchUser = async (userId) => {
+    const response = await api.get(`/api/v1/user/getUser/${userId}`)
+    return response;
+}
+
+const fetchMatches = async (userId, vars, varsUpdated) => {
+  const matchParams = {
+    userId: userId,
+    vars: vars,
+    isVarsModified: varsUpdated
+  }
+
+  const matches = await api.post(`/api/v1/user/getMatchList`, matchParams);
+  return matches;
+}
+
+const fetchCelebs = async () => {
+  const response = await api.get('/api/v1/celeb/search/findAll');
+  return response;
+}
+
+
+
+
 function App() {
   const initVars = {
     Sun: 4.0,
@@ -32,89 +56,62 @@ function App() {
     Mode: .5,
     House: 1
   }
-  
+
   const [user, setUser] = useState();
   const [userChart, setUserChart] = useState(); //user is var, use setUser to change
   const [matchData, setMatches] = useState();
   const [vars, setVars] = useState(initVars);
   const [varsUpdated, setVarsUpdated] = useState(false)
+  const [celebData, setCelebData] = useState([]);
 
   const navigate = useNavigate();
 
-  const createUser = async (userData) => {
-    console.log("userData: " + JSON.stringify(userData))
-    let locIdentifier = userData.Location.shortCountry == "US" || 
-                        userData.Location.shortCountry == "CA" ?
-                        userData.Location.shortRegion :
-                        userData.Location.shortCountry;
-
-    let loc = {town: userData.Location.town, 
-               region: userData.Location.longRegion,
-               country: userData.Location.longCountry,
-               code: locIdentifier}
-
-    let utcDate = new Date(userData.Date)
-
-    
-    let userForm = {name: userData.Name, date: convertUTCDateToLocalDate(utcDate).toISOString(), location:loc}
-    try {
-      console.log("userForm: " + JSON.stringify(userForm))
-      const response = await api.post("api/v1/user", userForm) 
-      const data = response.data;
-      setUser(data);
-      const planetMap = new Map(data.userChart.chart.map(i => [i.planet, [i.zodiac, i.element, i.mode, i.house]]));
-      setUserChart(planetMap);
-      setMatches('');
-      navigate(`/userChart/${data.chartId}`)
-    } catch (err) {
-      throw new Error('Data base unavaliable')
-    }
-  }
-
-  function convertUTCDateToLocalDate(date) {
-    var newDate = new Date(date.getTime() - date.getTimezoneOffset()*60*1000);
-    return newDate;   
-  }
 
   // dont do a get user chart method
   // getting the user will return the chart with it
-  const getUserData = async (userId) => {
-      try {
-        console.log("get user data" + userId)
-        const response = await api.get(`/api/v1/user/getUser/${userId}`);
-        const data = response.data;
-        setUser(data);
-
-        const planetMap = new Map(data.userChart.chart.map(i => [i.planet, [i.zodiac, i.element, i.mode, i.house]]));
-        setUserChart(planetMap);
-      } catch (err) {
-        console.log(err);
-      }
-  }
   
-  const getMatchData = async (userId) => {
-    try {
-      console.log("get match data")
-      const matchParams= {
-        isVarsModified: varsUpdated,
-        userId: userId,
-        vars: vars
-      }
-      const response = await api.post(`/api/v1/user/getMatchList`, matchParams);
-      setMatches(response.data);
-      setVarsUpdated(false)
-      console.log("MATCHES " + JSON.stringify(matchData))
-      return response
-    } catch (err){
-      console.log(err);
-    }
+  const getUserData = async (userId) => {
+    fetchUser(userId).then((response) => {
+      //console.log("response " + JSON.stringify(response))
+      const userData = response.data
+      const chartData = new Map(response.data.userChart.chart.map(i => [i.planet, [i.zodiac, i.element, i.mode, i.house]]))
+      setUser(userData)
+      setUserChart(chartData)
+    }).catch((e) => {
+      console.log(e)
+    })
+  }
+
+  const updateMatchData = async () => {
+    if (user) {
+      fetchMatches(user.chartId, vars, varsUpdated).then((response) => {
+        setMatches(response.data)
+        setVarsUpdated(false)
+      }).catch((e) => {
+        console.log(e)
+      })
+    } 
   }
 
   useEffect(() => {
-    if (user && varsUpdated) getMatchData(user.chartId)
-  }, [varsUpdated])
+      updateMatchData()
+  }, [vars, user, celebData])
 
-  //console.log("vars updated " + varsUpdated);
+  useEffect(() => {
+    if (user) {
+      navigate(`/userChart/${user.chartId}`)
+    }
+  },[user])
+
+  useEffect(() => {
+    console.log("fetch celebs")
+    fetchCelebs().then((response) => {
+      console.log("fetch celebs response " + JSON.stringify(response))
+     
+      setCelebData(response.data)
+    })
+  }, [])
+
 
   return (
     <>
@@ -124,13 +121,13 @@ function App() {
     <Header user={user}/>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/createChart" element={<CreateChart createUser={createUser} user={user}/>}></Route>
-          <Route path="/matchResult" element={<MatchResult />}></Route>
+          <Route path="/createChart" element={<CreateChart setUser={setUser} setUserChart={setUserChart} />}></Route>
+          <Route path="/matchResult" element={<MatchResult user={user} userChart={userChart}/>}></Route>
           <Route path="/modifyVars" element={<ModifyVars vars={vars} setVars={setVars} setVarsUpdated={setVarsUpdated} initVars={initVars}/>}></Route> 
-          <Route path="/userChart/:chartId" element={<UserChart user={user} getUserData={getUserData} userChart={userChart} getMatchData={getMatchData} matchData={matchData} varsUpdated={varsUpdated}/>}></Route>
-          <Route path="/searchCeleb" element={<SearchCeleb user={user} userChart={userChart} matchData={matchData}/>}></Route>
-          <Route path="/resultCeleb" element={<ResultCeleb/>}></Route>
-          <Route path="/addCeleb" element={<AddCeleb user={user} userChart={userChart} getMatchData={getMatchData} setVarsUpdated={setVarsUpdated} matchData={matchData}/>}></Route>
+          <Route path="/userChart/:chartId" element={<UserChart user={user} userChart={userChart} matchData={matchData} getUserData={getUserData}/>}></Route>
+          <Route path="/searchCeleb" element={<SearchCeleb celebList={celebData}/>}></Route>
+          <Route path="/resultCeleb/:celebName" element={<ResultCeleb matches={matchData}/>}></Route>
+          <Route path="/addCeleb" element={<AddCeleb celebList={celebData} setCelebData={setCelebData} />}></Route>
           <Route path="/contactMe" element={<ContactMe/>}/>
           <Route path="/about" element={<About/>}></Route>
         </Route>

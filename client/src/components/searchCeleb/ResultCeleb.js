@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState}  from 'react';
+import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import SunIcon from '../../images/sun.svg';
@@ -12,30 +13,58 @@ import SaturnIcon from '../../images/saturn.svg';
 import UranusIcon from '../../images/uranus.svg';
 import NeptuneIcon from '../../images/neptune.svg';
 import PlutoIcon from '../../images/pluto.svg';
+import api from '../../api/axiosConfig'
 
-const ResultCeleb = () => {
-    const location = useLocation();
-    const { state } = location;
-    const { celeb, user, userChart, matchData } = state;
+const fetchCeleb = async (celebName) => {
+  console.log("fetch celeb " + celebName)
+  const uri = `/api/v1/celeb/search/${celebName}`
+  const encode = encodeURI(uri)
+  console.log("encode " + encode)
+  const response = await api.get(uri)
+  return response;
+}
+
+const ResultCeleb = ({ matches }) => {
+    //const location = useLocation();
+    //const { state } = location;
+    //const { celeb } = state;
+    const [celeb, setCeleb] = useState()
+    const [celebBday, setCelebBday] = useState()
     const [curMatch, setCurMatch] = useState()
     const [celebChart, setCelebChart] = useState()
+
+    let params = useParams();
+    const celebName = params.celebName;
     
-    const celebBday = new Date(celeb?.bday)
+    
+    //useEffect(() => {
+    //    const planetMap = new Map(celeb?.celebChart.chart.map(i => [i.planet, [i.zodiac, i.element, i.mode, i.house]]));
+    //    setCelebChart(planetMap)
+    //}, [celeb])
+
+    //useEffect(() => {
+    //  const celebMatch = matches?.find(match => match.celeb.name === celeb.name)
+    //  setCurMatch(celebMatch)
+    //}, [matches, celeb])
+
     useEffect(() => {
-        const planetMap = new Map(celeb?.celebChart.chart.map(i => [i.planet, [i.zodiac, i.element, i.mode, i.house]]));
-        setCelebChart(planetMap)
-        if (matchData) {
-            for (var i = 0; i < matchData?.length; i++) {
-                if (celeb.name === matchData[i].celeb.name) {
-                setCurMatch(matchData[i])
-                break;
-            }
-        }
-        }
-    }, [])
+      console.log("celeb name " + celebName)
+      fetchCeleb(celebName).then((response) => {
+        
+        const celeb = response.data
+        setCeleb(celeb)
+        const celebBday = new Date(celeb.bday)
+        const celebChart = new Map(celeb.celebChart.chart.map(i => [i.planet, [i.zodiac, i.element, i.mode, i.house]]));
+        const curMatch = matches?.find(match => match.celeb.name === celeb.name)
+        setCelebBday(celebBday)
+        setCelebChart(celebChart)
+        setCurMatch(curMatch)
+      }).catch((e) => {
+        console.error(e)
+      })
+    }, [celebName, matches])
 
-
-
+    
 
     return (
         <>
@@ -55,8 +84,8 @@ const ResultCeleb = () => {
                   <h6>Born:</h6>
                 </div>
                 <div id="w-node-_7353c4b0-05c9-aef4-9829-6b9a74915ea6-781602bd" className="w-layout-cell">
-                  <div className="text-block-12">{`${celebBday.toLocaleString('default', {month: 'long'})} ${celebBday.getDate()}, ${celebBday.getFullYear()}` }</div>
-                  <div className="text-block-12">{`at ${celebBday.toLocaleString('default', { hour: 'numeric', minute: 'numeric', hour12: true })}`}</div>
+                  <div className="text-block-12">{`${celebBday?.toLocaleString('default', {month: 'long'})} ${celebBday?.getDate()}, ${celebBday?.getFullYear()}` }</div>
+                  <div className="text-block-12">{`at ${celebBday?.toLocaleString('default', { hour: 'numeric', minute: 'numeric', hour12: true })}`}</div>
                   <div className="text-block-12">{`${celeb?.blocation.town}, ${celeb?.blocation.country}`}</div>
                 </div>
               </div>
@@ -112,7 +141,7 @@ const ResultCeleb = () => {
           </div>
 
             <center>
-          {curMatch && (<Link className='button w-button' to={`/matchResult`} state={{ user : user, userChart: userChart, match: curMatch }}>Compare My Chart</Link>)}
+          {curMatch && (<Link className='button w-button' to={`/matchResult`} state={{ match: curMatch }}>Compare My Chart</Link>)}
             </center>
         </div>
       </div>

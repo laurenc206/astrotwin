@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import Autocomplete from "@mui/material/Autocomplete";
 
-const SearchCeleb = ({user, userChart, matchData}) => {
+const SearchCeleb = ({ celebList }) => {
     const { control, handleSubmit, formState: {isSubmitting}} = useForm()
     const [errorState, setErrorState] = useState('');
     const navigate = useNavigate();
@@ -14,68 +14,70 @@ const SearchCeleb = ({user, userChart, matchData}) => {
     const [open, setOpen] = useState(false);
     const [options, setOptions] = useState([]);
     const loading = open && options.length === 0;
-    const [celebData, setCelebData] = useState([]);
+    //const [celebData, setCelebData] = useState([]);
+
+   // useEffect(() => {
+   //     api.get('/api/v1/celeb/search/findAll').then((res) => {
+   //         setCelebData(res.data)
+   //         setOptions(res.data)
+             
+   //     }).catch((err) => {
+   //       console.log("error " + err);
+   //       setErrorState(err.code)
+   //     })
+   // }, [])
+   useEffect(() => {
+    if (celebList.length === 0) {
+      setErrorState("ERR_NETWORK")
+    } else {
+      setErrorState("")
+    }
+   }, [celebList])
 
     useEffect(() => {
-        console.log("on load? api call")
-        api.get('/api/v1/celeb/search/findAll').then((res) => {
-            setCelebData(res.data)
-            setOptions(res.data)
-            console.log("set celeb data " + JSON.stringify(celebData))  
-        }).catch((err) => {
-          console.log("error " + err);
-          setErrorState(err.code)
-        })
-    }, [])
+      let active = true;
+      if (!loading) {
+        return undefined;
+      }
     
+      
+      if (active) {
+        
+        console.log("set options ")
+        setOptions(celebList)    
+        console.log("options " + JSON.stringify(options))
+        
+        
+        //console.log("celeb data " + JSON.stringify(celebData))
+      }
+     
+    
+      return () => {
+        active = false;
+      };
 
-    useEffect(() => {
-        let active = true;
-        if (!loading) {
-          return undefined;
-        }
-    
-        (async () => {
-            if (active) {
-                console.log("set options ")
-                setOptions(celebData)    
-                console.log("options " + JSON.stringify(options))
-                console.log("celeb data " + JSON.stringify(celebData))
-            }
-        })();
-    
-        return () => {
-          active = false;
-        };
-
-      }, [loading]);
+    }, [loading]);
     
     useEffect(() => {
         if (!open) {
           setOptions([]);
         }
-    }, [open, celebData]);
+    }, [open]);
     
 
 
     const onSubmit = (data, e) => {
         setErrorState('')
-        console.log("on submit data " + JSON.stringify(data))
-        
-
-
-        //const celeb = data.Name
-
-        //navigate("/resultCeleb", {state: {celeb : celeb, user: user, userChart: userChart, matchData: matchData}})
-        api.get(`/api/v1/celeb/search/${data.Name}`)
-                          .then((res) => {
-                            const celeb = res.data
-                            navigate("/resultCeleb", {state: {celeb : celeb, user: user, userChart: userChart, matchData: matchData}})
-                          })
-                          .catch((err) => {
-                            console.log("error " + JSON.stringify(err))
-                            setErrorState(err.code);
-                          });
+        navigate(`/resultCeleb/${data.Name}`)
+        //api.get(`/api/v1/celeb/search/${data.Name}`)
+        //                  .then((res) => {
+        //                    const celeb = res.data
+        //                    navigate("/resultCeleb", {state: {celeb : celeb }})
+        //                  })
+        //                  .catch((err) => {
+        //                    console.log("error " + JSON.stringify(err))
+        //                    setErrorState(err.code);
+        //                  });
     };
 
     
@@ -106,7 +108,6 @@ const SearchCeleb = ({user, userChart, matchData}) => {
 
                     <Autocomplete
                         id="search-celeb"
-                        freeSolo
                         open={open}
                         onOpen={() => {
                             setOpen(true);
@@ -125,13 +126,8 @@ const SearchCeleb = ({user, userChart, matchData}) => {
                         renderInput={(params, field) => (
                             <TextField   
                                 {...params}   
-                                
-                               
                                 size="small"
                                 className="text-field w-input"
-                                //onBlur={onBlur}
-                                
-                                //size="small"
                                 InputProps={{
                                     ...params.InputProps,
                                     endAdornment: (
@@ -140,9 +136,7 @@ const SearchCeleb = ({user, userChart, matchData}) => {
                                             {params.InputProps.endAdornment}
                                         </React.Fragment>
                                     )
-                                }}
-                                //selected={value}
-                                //className="text-field w-input"
+                                }}  
                             />
                         )}
                     />
@@ -154,7 +148,7 @@ const SearchCeleb = ({user, userChart, matchData}) => {
               <div className="spacer _16"></div>  
               <div id="w-node-_4216035e-6416-4b70-dd03-3e292dc9f2f6-96dc377f" className="w-layout-layout quick-stack-18 wf-layout-layout">
                 <div id="w-node-bc7dc6ea-5844-85ac-2c94-664ddcd62d67-96dc377f" className="w-layout-cell cell-14">
-                    <input type="submit" value="Submit" data-wait="Please wait..." className="button w-button" disabled={isSubmitting}/></div>
+                    <input type="submit" value="Submit" data-wait="Please wait..." className="button w-button" disabled={isSubmitting || errorState}/></div>
               </div>
             </form>
 

@@ -18,7 +18,8 @@ const GoogleAutoComplete = ({control, name, errors, field, sessionToken, ...rest
 
     const fetch = useMemo(
         () => throttle(async (request) => {
-            if (request?.input) {          
+            if (request?.input) {   
+                console.log(sessionToken)       
                 const options = {
                     method: 'POST',
                     url: `${process.env.React_app_PROXY_URL}/autocomplete`,
@@ -82,7 +83,7 @@ const GoogleAutoComplete = ({control, name, errors, field, sessionToken, ...rest
             control={control}
             defaultValue=""
             rules={{ required: "Birth location is required (if exact city is not listed, select closest city avaliable)" }}
-            render={({ field, ...props }) => (
+            render={({ field, ref, ...props }) => (
                 <AutoComplete 
                     {...field}
                     id="Location"

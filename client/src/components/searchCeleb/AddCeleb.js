@@ -4,49 +4,70 @@ import {TextField} from '@mui/material/'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const AddCeleb = ({user, userChart, getMatchData, setVarsUpdated, matchData}) => {
-    const { control, reset,  handleSubmit, formState: {isSubmitted, isSubmitting, isDirty}} = useForm()
-    const [errorState, setErrorState] = useState('');
-    const [celebName, setCelebName] = useState();
-    const navigate = useNavigate();
-    
+const insertCeleb = async (celebName) => {
+  const response = await api.post(`/api/v1/celeb/insertCeleb/${celebName}`)
+  return response;
+}
 
+
+const AddCeleb = ({ celebList, setCelebData }) => {
+  const { control, reset,  handleSubmit, formState: {isSubmitted, isSubmitting, isDirty}} = useForm()
+  const [errorState, setErrorState] = useState('');
+  const navigate = useNavigate();
     
-    const onSubmit = (data, e) => {
+  const onSubmit = async (data, e) => {
+    console.log("data " + JSON.stringify(data))
+    setErrorState('')
+    const nameArr = data.Name.split(" ");
+    const capNameArr = nameArr.map((w) => { return w[0].toUpperCase() + w.substr(1).toLowerCase()})
+    const celebName = capNameArr.join(" ")
+   
+   console.log("celeb name " + celebName)
+
+    if (!celebList.includes(celebName)) {
+      insertCeleb(celebName).then((response) => {
+        setCelebData(prevData => [...prevData, celebName])
+        navigate(`/resultCeleb/${celebName}`)
+      }).catch((e) => {
+        setErrorState(e.code);
+        reset({
+          Name: data.Name
+          }, {
+          keepIsSubmitted: false, 
+        })
+      })
+    } else {
+      navigate(`/resultCeleb/${celebName}`)
+    }
+
+    //navigate(`/resultCeleb:${data}`)
+
+    //insertCeleb(data.Name).then((response) => {
+        //const celebData = response.data;
+       // console.log("insert celeb " + JSON.stringify(celebData))
+        //updateMatchData().then(() => {
+        //  navigate("/resultCeleb", {state: {celeb: celebData }})
+        //})
         
-        setErrorState('')
+       // setCelebData(prevData => {
+       //   if (!prevData.includes(celebData.name)) {
+       //     return [...prevData, celebData.name]
+       //   }
+      //    return prevData
+     //   })
+     //   navigate(`/resultCeleb:${data}`)
         
-        api.post(`/api/v1/celeb/insertCeleb/${data.Name}`)
-                          .then((celebResponse) => {
-                            
-                                if (user) {
-                                    setVarsUpdated(true)     
-                                    getMatchData(user?.chartId).then((matchResponse) => {
-                                    //console.log("match response from add celeb " + JSON.stringify(matchResponse.data))
-                                        navigate("/resultCeleb", {state: {celeb: celebResponse.data, user: user, userChart: userChart, matchData: matchResponse.data}})})
-                                } else {
-                                    navigate("/resultCeleb", {state: {celeb: celebResponse.data, user: user, userChart: userChart, matchData: ""}})
-                                }
-                            })
-                            
-                            
-                          .catch((err) => {
-                            console.log("error " + JSON.stringify(err))
-                            setErrorState(err.code);
-                            reset(
-                            {
-                                Name: data.Name
-                            },  
-                            {
-                                keepIsSubmitted: false, 
-                            })
-
-                          });
-
-    };
+   // }).catch((e) => {
+  //    setErrorState(e.code);
+  //    reset({
+   //             Name: data.Name
+      //        }, {
+        //        keepIsSubmitted: false, 
+    //  })
+//    })
+  }
     
-    
-    return (
+  return (
         <>
 <div className="w-layout-blockcontainer utility-page-wrap w-container">
     <div className="w-layout-blockcontainer w-container">

@@ -31,12 +31,12 @@ import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import api from '../../api/axiosConfig';
 
-const MatchResult = () => {
+const MatchResult = ({ user, userChart }) => {
   const [celebChart, setCelebChart] = useState();
 
   const location = useLocation();
   const { state } = location;
-  const {user, userChart, match} = state;
+  const { match } = state;
   
 //https://www.horoscope.com/us/planets/index.html
   const planetMeanings = {
@@ -57,6 +57,7 @@ const MatchResult = () => {
     // make sure to add caching so backend doesnt go to database for every req  
     //if (!user) getUserData(chartId);
     getCelebData(match?.celeb.name)
+
   }, [])
   
   const getCelebData = async (celebName) => {
@@ -69,6 +70,8 @@ const MatchResult = () => {
       console.log(err);
     }
   }
+
+ 
   
   
   return (
