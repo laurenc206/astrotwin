@@ -44,8 +44,7 @@ app.post('/autocomplete', (req, res) => {
 app.get("/place", (req, res) => {
     const place_id = req.query.placeId;
     const sessionToken = req.query.sessionToken;
-    console.log("place id " + place_id)
-    console.log("session: " + sessionToken)
+
     const options = {
         method: 'GET',
         url: `https://places.googleapis.com/v1/places/${place_id}`,
@@ -55,12 +54,11 @@ app.get("/place", (req, res) => {
         headers: {
             contentType: "application/json",
             "x-goog-api-key": process.env.GOOGLE_MAPS_API_KEY,
-            "x-goog-fieldmask": "addressComponents",
+            "x-goog-fieldmask": "addressComponents,location",
         }
     }
 
     axios.request(options).then((response) => {
-        //console.log("response " + JSON.stringify(response))
         res.json(response.data)
     }).catch((error) => {
         console.error(error)
