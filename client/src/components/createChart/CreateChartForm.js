@@ -2,7 +2,6 @@ import { Controller, useForm, Form } from 'react-hook-form'
 import { TextField } from '@mui/material';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect } from 'react';
@@ -53,7 +52,6 @@ const createUser = async (formData, locationData) => {
     }
     userForm['birthday'] = bday_local.toISO({ includeOffset: false });
     userForm['birthday_UTC'] = bday_utc.toISO({ includeOffset: false });
-    console.log("user form " + JSON.stringify(userForm))
     const response = await api.post("api/v1/user", userForm);
     return response;
 }
@@ -65,17 +63,13 @@ const CreateChartForm = ({setUser, setUserChart}) => {
     const [sessionToken, setSessionToken] = useState("")
   
     const submitHandler = (formData) => {
-        console.log("data " + JSON.stringify(formData))
-       
         fetchLocation(formData.Location, sessionToken).then((response) => {
-            console.log(sessionToken)
             const data = response.data
             const location = {
                 'text': formData.Location.text,
                 'lat': data.location.latitude,
                 'lng': data.location.longitude
             }
-            console.log(location)
 
             createUser(formData, location).then((response) => {
                 const userData = response.data
@@ -83,12 +77,12 @@ const CreateChartForm = ({setUser, setUserChart}) => {
                 setUser(userData)
                 setUserChart(chartData)
             }).catch((e) => {
-                console.log(e)
+                console.error(e)
                 setDbError("Database Error")
             })
 
         }).catch((e) => {
-            console.log(e)
+            console.error(e)
             setDbError("Location Error")
         }).finally(
             setSessionToken("")
@@ -96,8 +90,8 @@ const CreateChartForm = ({setUser, setUserChart}) => {
     };
 
     const errorHandler = (e) => {
-        console.log("e " + JSON.stringify(e))
-        console.log("errors " + JSON.stringify(errors))   
+        console.error("e " + JSON.stringify(e))
+        console.error("errors " + JSON.stringify(errors))   
     }
 
     useEffect(() => {

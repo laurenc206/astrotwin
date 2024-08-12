@@ -11,15 +11,9 @@ const GoogleAutoComplete = ({control, name, errors, field, sessionToken, ...rest
     const [options, setOptions] = useState([]);
     const [networkError, setNetworkError] = useState(false)
 
-    const onSubmit= () => {
-        // when complete, erase session token so each time page refreshes new session token is restarted
-        // a new session token needs to be generated with the call of places api 
-    }
-
     const fetch = useMemo(
         () => throttle(async (request) => {
-            if (request?.input) {   
-                console.log(sessionToken)       
+            if (request?.input) {      
                 const options = {
                     method: 'POST',
                     url: `${process.env.React_app_PROXY_URL}/autocomplete`,
@@ -36,10 +30,7 @@ const GoogleAutoComplete = ({control, name, errors, field, sessionToken, ...rest
                         const text = place.placePrediction.text.text
                         return {id, text}    
                     })
-                    console.log(JSON.stringify(data_options))
-        
                     setOptions(data_options)
-                    console.log("options " + JSON.stringify(data_options))
                 }).catch((error) => {
                     console.error(error)
                     setNetworkError(true)

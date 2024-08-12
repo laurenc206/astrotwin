@@ -1,7 +1,6 @@
 import { Controller } from 'react-hook-form'
 import { Slider } from '@mui/material';
 
-
 const SlideVal = ({control, name, initVal}) => {
 
     const CustomSliderStyles = {
@@ -19,7 +18,6 @@ const SlideVal = ({control, name, initVal}) => {
         }
         
     };
-
 
     return (
     <>

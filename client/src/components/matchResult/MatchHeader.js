@@ -2,11 +2,7 @@ import React from 'react';
 
 
 const MatchHeader = ({user, match}) => {
-  console.log(JSON.stringify(match))
   const celebBday = new Date(match?.celeb.bday)
-  console.log(JSON.stringify(celebBday))
-  console.log(JSON.stringify(user))
-
 
     return (
 <>

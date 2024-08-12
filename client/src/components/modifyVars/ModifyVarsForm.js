@@ -4,8 +4,6 @@ import SlideVal from "./SlideVal";
 
 
 const ModifyVarsForm = ({vars, setVars, setVarsUpdated, initVars}) => {
-  console.log("modify vars form" + JSON.stringify(vars))
-
   const [varsObj, setVarsObj] = useState()
   const { control, handleSubmit, reset, formState: {isSubmitted, isDirty}} = useForm()
   
@@ -15,8 +13,6 @@ const ModifyVarsForm = ({vars, setVars, setVarsUpdated, initVars}) => {
   
 
   const onSubmit = (data) => {
-    console.log("submit")
-    console.log(data)
     setVars(data)
     setVarsUpdated(true)
     reset(data)
@@ -28,10 +24,9 @@ const ModifyVarsForm = ({vars, setVars, setVarsUpdated, initVars}) => {
     setVarsObj(Object.entries(vars))
     setVarsUpdated(true)
     reset(initVars)
-    console.log("Reset " + JSON.stringify(vars))
+
   }
-console.log("isSubmitted" + isSubmitted)
-console.log("isDirty " + isDirty)
+
   return (
    <div className="terms-card">
       <div className="text-box centered">

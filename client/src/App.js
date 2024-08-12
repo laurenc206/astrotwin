@@ -35,9 +35,6 @@ const fetchCelebs = async () => {
   return response;
 }
 
-
-
-
 function App() {
   const initVars = {
     Sun: 4.0,
@@ -62,23 +59,20 @@ function App() {
   const [matchData, setMatches] = useState();
   const [vars, setVars] = useState(initVars);
   const [varsUpdated, setVarsUpdated] = useState(false)
-  const [celebData, setCelebData] = useState([]);
+  const [celebList, setCelebList] = useState([]);
 
   const navigate = useNavigate();
 
-
   // dont do a get user chart method
   // getting the user will return the chart with it
-  
   const getUserData = async (userId) => {
     fetchUser(userId).then((response) => {
-      //console.log("response " + JSON.stringify(response))
       const userData = response.data
       const chartData = new Map(response.data.userChart.chart.map(i => [i.planet, [i.zodiac, i.element, i.mode, i.house]]))
       setUser(userData)
       setUserChart(chartData)
     }).catch((e) => {
-      console.log(e)
+      console.error(e)
     })
   }
 
@@ -88,14 +82,14 @@ function App() {
         setMatches(response.data)
         setVarsUpdated(false)
       }).catch((e) => {
-        console.log(e)
+        console.error(e)
       })
     } 
   }
 
   useEffect(() => {
       updateMatchData()
-  }, [vars, user, celebData])
+  }, [vars, user, celebList])
 
   useEffect(() => {
     if (user) {
@@ -104,14 +98,10 @@ function App() {
   },[user])
 
   useEffect(() => {
-    console.log("fetch celebs")
     fetchCelebs().then((response) => {
-      console.log("fetch celebs response " + JSON.stringify(response))
-     
-      setCelebData(response.data)
+      setCelebList(response.data)
     })
   }, [])
-
 
   return (
     <>
@@ -125,9 +115,9 @@ function App() {
           <Route path="/matchResult" element={<MatchResult user={user} userChart={userChart}/>}></Route>
           <Route path="/modifyVars" element={<ModifyVars vars={vars} setVars={setVars} setVarsUpdated={setVarsUpdated} initVars={initVars}/>}></Route> 
           <Route path="/userChart/:chartId" element={<UserChart user={user} userChart={userChart} matchData={matchData} getUserData={getUserData}/>}></Route>
-          <Route path="/searchCeleb" element={<SearchCeleb celebList={celebData}/>}></Route>
+          <Route path="/searchCeleb" element={<SearchCeleb celebList={celebList}/>}></Route>
           <Route path="/resultCeleb/:celebName" element={<ResultCeleb matches={matchData}/>}></Route>
-          <Route path="/addCeleb" element={<AddCeleb celebList={celebData} setCelebData={setCelebData} />}></Route>
+          <Route path="/addCeleb" element={<AddCeleb celebList={celebList} setCelebList={setCelebList} />}></Route>
           <Route path="/contactMe" element={<ContactMe/>}/>
           <Route path="/about" element={<About/>}></Route>
         </Route>

@@ -54,8 +54,6 @@ const MatchResult = ({ user, userChart }) => {
   }
   
   useEffect(() => {
-    // make sure to add caching so backend doesnt go to database for every req  
-    //if (!user) getUserData(chartId);
     getCelebData(match?.celeb.name)
 
   }, [])
@@ -67,7 +65,7 @@ const MatchResult = ({ user, userChart }) => {
       const planetMap = new Map(data.celebChart.chart.map(i => [i.planet, [i.zodiac, i.element, i.mode, i.house]]));
       setCelebChart(planetMap);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 

@@ -12,8 +12,6 @@ const ContactMe = () => {
     const onSubmit = async (data) => {
         setFormStatus('')
         setErrorMessage('')
-
-        console.log("onSubmit " + JSON.stringify(data))
         const form= {
             firstName: data.firstName,
             lastName: data.lastName,
@@ -23,7 +21,6 @@ const ContactMe = () => {
 
         try {   
             const response = await api.post("api/v1/user/contactMe", form) 
-            console.log("response " + response.data)
             setFormStatus(response.data)
 
             if (formStatus != "Success") {
@@ -31,7 +28,7 @@ const ContactMe = () => {
             }
 
         } catch (err) {
-            console.log(err)
+            console.error(err)
             setFormStatus(err.code)
             if (formStatus === "ERR_NETWORK") {
                 setErrorMessage("Unable to connect to data service.")
@@ -43,7 +40,7 @@ const ContactMe = () => {
     };
 
     const onError = (e) => {
-        console.log("onError " + JSON.stringify(e))
+        console.error("onError " + JSON.stringify(e))
     }
 
     return (

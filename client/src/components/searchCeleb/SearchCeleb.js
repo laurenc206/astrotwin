@@ -1,4 +1,3 @@
-import api from '../../api/axiosConfig'
 import { Controller, useForm } from 'react-hook-form'
 import {CircularProgress, TextField} from '@mui/material/'
 import React, { useState, useEffect } from 'react'
@@ -9,23 +8,15 @@ import Autocomplete from "@mui/material/Autocomplete";
 const SearchCeleb = ({ celebList }) => {
     const { control, handleSubmit, formState: {isSubmitting}} = useForm()
     const [errorState, setErrorState] = useState('');
-    const navigate = useNavigate();
-
     const [open, setOpen] = useState(false);
     const [options, setOptions] = useState([]);
-    const loading = open && options.length === 0;
-    //const [celebData, setCelebData] = useState([]);
 
-   // useEffect(() => {
-   //     api.get('/api/v1/celeb/search/findAll').then((res) => {
-   //         setCelebData(res.data)
-   //         setOptions(res.data)
-             
-   //     }).catch((err) => {
-   //       console.log("error " + err);
-   //       setErrorState(err.code)
-   //     })
-   // }, [])
+    const loading = open && options.length === 0;
+
+    const navigate = useNavigate();
+
+
+
    useEffect(() => {
     if (celebList.length === 0) {
       setErrorState("ERR_NETWORK")
@@ -42,13 +33,7 @@ const SearchCeleb = ({ celebList }) => {
     
       
       if (active) {
-        
-        console.log("set options ")
         setOptions(celebList)    
-        console.log("options " + JSON.stringify(options))
-        
-        
-        //console.log("celeb data " + JSON.stringify(celebData))
       }
      
     
@@ -69,15 +54,6 @@ const SearchCeleb = ({ celebList }) => {
     const onSubmit = (data, e) => {
         setErrorState('')
         navigate(`/resultCeleb/${data.Name}`)
-        //api.get(`/api/v1/celeb/search/${data.Name}`)
-        //                  .then((res) => {
-        //                    const celeb = res.data
-        //                    navigate("/resultCeleb", {state: {celeb : celeb }})
-        //                  })
-        //                  .catch((err) => {
-        //                    console.log("error " + JSON.stringify(err))
-        //                    setErrorState(err.code);
-        //                  });
     };
 
     

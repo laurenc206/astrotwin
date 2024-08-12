@@ -13,9 +13,6 @@ import {useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-
-
-
 const UserChart = ({user, userChart, matchData, getUserData}) => {
 
   let params = useParams();
@@ -26,8 +23,6 @@ const UserChart = ({user, userChart, matchData, getUserData}) => {
     if (!user || user.chartId !== chartId) getUserData(chartId)
  
   }, [])
-
-  console.log("user: " + JSON.stringify(user))
   
   return (
   <div className="w-layout-blockcontainer account-page-wrapper w-container">

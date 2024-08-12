@@ -10,23 +10,21 @@ const insertCeleb = async (celebName) => {
 }
 
 
-const AddCeleb = ({ celebList, setCelebData }) => {
+const AddCeleb = ({ celebList, setCelebList }) => {
   const { control, reset,  handleSubmit, formState: {isSubmitted, isSubmitting, isDirty}} = useForm()
   const [errorState, setErrorState] = useState('');
   const navigate = useNavigate();
     
   const onSubmit = async (data, e) => {
-    console.log("data " + JSON.stringify(data))
     setErrorState('')
     const nameArr = data.Name.split(" ");
     const capNameArr = nameArr.map((w) => { return w[0].toUpperCase() + w.substr(1).toLowerCase()})
     const celebName = capNameArr.join(" ")
    
-   console.log("celeb name " + celebName)
 
     if (!celebList.includes(celebName)) {
       insertCeleb(celebName).then((response) => {
-        setCelebData(prevData => [...prevData, celebName])
+        setCelebList(prevData => [...prevData, celebName])
         navigate(`/resultCeleb/${celebName}`)
       }).catch((e) => {
         setErrorState(e.code);
@@ -39,32 +37,6 @@ const AddCeleb = ({ celebList, setCelebData }) => {
     } else {
       navigate(`/resultCeleb/${celebName}`)
     }
-
-    //navigate(`/resultCeleb:${data}`)
-
-    //insertCeleb(data.Name).then((response) => {
-        //const celebData = response.data;
-       // console.log("insert celeb " + JSON.stringify(celebData))
-        //updateMatchData().then(() => {
-        //  navigate("/resultCeleb", {state: {celeb: celebData }})
-        //})
-        
-       // setCelebData(prevData => {
-       //   if (!prevData.includes(celebData.name)) {
-       //     return [...prevData, celebData.name]
-       //   }
-      //    return prevData
-     //   })
-     //   navigate(`/resultCeleb:${data}`)
-        
-   // }).catch((e) => {
-  //    setErrorState(e.code);
-  //    reset({
-   //             Name: data.Name
-      //        }, {
-        //        keepIsSubmitted: false, 
-    //  })
-//    })
   }
     
   return (

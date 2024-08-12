@@ -2,7 +2,6 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import throttle from "lodash/throttle";
-//import getAddress from "./api/getAddress";
 import {Controller} from 'react-hook-form'
 import api from '../../api/axiosConfig';
 
@@ -17,17 +16,14 @@ const PlacesAutocomplete = ({control, name, errors, field, ...rest}) => {
   const fetch = React.useMemo(
     () => 
       throttle(async (request) => { 
-        console.log(`request ${request}`)
         if (request) {
-            console.log(`api request ` + JSON.stringify(request))
             api.get(`/api/v1/user/getCities/${request.input}`)
             .then((res) => {
-            console.log(res.data) 
             setOptions(res.data.geonames)
             return res.data.geonames
             })
             .catch((err) => {
-              console.log(err)
+              console.error(err)
               setNetworkError(true)
             })
         }
@@ -85,7 +81,7 @@ const PlacesAutocomplete = ({control, name, errors, field, ...rest}) => {
           onChange={(event, newValue) => {
             setOptions(newValue ? [newValue, ...options] : options);
             setValue(newValue);
-            console.log(`onchange ${event}`)
+            console.error(`onchange ${event}`)
             // Actually change the state of react-hook-forms
             field.onChange(newValue);
           }}

@@ -1,6 +1,5 @@
 import React, { useEffect, useState}  from 'react';
 import { useParams } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import SunIcon from '../../images/sun.svg';
 import MoonIcon from '../../images/moon.svg';
@@ -16,18 +15,11 @@ import PlutoIcon from '../../images/pluto.svg';
 import api from '../../api/axiosConfig'
 
 const fetchCeleb = async (celebName) => {
-  console.log("fetch celeb " + celebName)
-  const uri = `/api/v1/celeb/search/${celebName}`
-  const encode = encodeURI(uri)
-  console.log("encode " + encode)
-  const response = await api.get(uri)
+  const response = await api.get(`/api/v1/celeb/search/${celebName}`)
   return response;
 }
 
 const ResultCeleb = ({ matches }) => {
-    //const location = useLocation();
-    //const { state } = location;
-    //const { celeb } = state;
     const [celeb, setCeleb] = useState()
     const [celebBday, setCelebBday] = useState()
     const [curMatch, setCurMatch] = useState()
@@ -35,20 +27,8 @@ const ResultCeleb = ({ matches }) => {
 
     let params = useParams();
     const celebName = params.celebName;
-    
-    
-    //useEffect(() => {
-    //    const planetMap = new Map(celeb?.celebChart.chart.map(i => [i.planet, [i.zodiac, i.element, i.mode, i.house]]));
-    //    setCelebChart(planetMap)
-    //}, [celeb])
-
-    //useEffect(() => {
-    //  const celebMatch = matches?.find(match => match.celeb.name === celeb.name)
-    //  setCurMatch(celebMatch)
-    //}, [matches, celeb])
 
     useEffect(() => {
-      console.log("celeb name " + celebName)
       fetchCeleb(celebName).then((response) => {
         
         const celeb = response.data
