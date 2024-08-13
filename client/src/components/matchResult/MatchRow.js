@@ -133,7 +133,7 @@ const MatchRow = ({planet, icon, userData, celebData, planetMeaning, planetImg})
           
   
           <div id="w-node-acfb0cfc-423c-6793-641c-9f45e3b8d323-e3b8d21a" className="w-layout-layout quick-stack-7 cell-2b wf-layout-layout">
-            <div id="w-node-acfb0cfc-423c-6793-641c-9f45e3b8d324-e3b8d21a" className="w-layout-cell"><img src={planetImg} loading="lazy" style={{"max-height": "80px"}}/></div>
+            <div id="w-node-acfb0cfc-423c-6793-641c-9f45e3b8d324-e3b8d21a" className="w-layout-cell"><img src={planetImg} loading="lazy" type="image/webp" style={{"max-height": "80px"}}/></div>
             <div id="w-node-acfb0cfc-423c-6793-641c-9f45e3b8d326-e3b8d21a" className="w-layout-cell">
                 
 
