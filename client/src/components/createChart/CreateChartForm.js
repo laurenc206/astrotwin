@@ -43,15 +43,24 @@ const createUser = async (formData, locationData) => {
     const bday_local = bday_input_utc.setZone(tz, { keepLocalTime: true })
     const bday_utc = DateTime.fromISO(bday_local.toISO(), { zone: 'utc' })
     
-    const userForm = {}
-    userForm['name'] = formData['Name']
-    userForm['location'] = {
-        text: locationData.text,
-        lat: lat,
-        lng: lng * -1
+    const userForm = {
+        name: formData['Name'],
+        location: {
+            text: locationData.text,
+            lat: lat,
+            lng: lng * -1
+        },
+        birthday: bday_local.toISO({ includeOffset: false }),
+        birthday_UTC: bday_utc.toISO({ includeOffset: false })
     }
-    userForm['birthday'] = bday_local.toISO({ includeOffset: false });
-    userForm['birthday_UTC'] = bday_utc.toISO({ includeOffset: false });
+   // userForm['name'] = formData['Name']
+   // userForm['location'] = {
+   //     text: locationData.text,
+   //     lat: lat,
+   //     lng: lng * -1
+   // }
+   // userForm['birthday'] = bday_local.toISO({ includeOffset: false });
+   // userForm['birthday_UTC'] = bday_utc.toISO({ includeOffset: false });
     const response = await api.post("api/v1/user", userForm);
     return response;
 }
