@@ -15,7 +15,10 @@ import ContactMe from './components/contactMe/ContactMe';
 import About from './components/about/About';
 
 const fetchUser = async (userId) => {
-    const response = await api.get(`/api/v1/user/getUser/${userId}`)
+    const searchParams = {
+      query: userId
+    } 
+    const response = await api.get(`/api/v1/user/getUser`, searchParams)
     return response;
 }
 
@@ -26,8 +29,8 @@ const fetchMatches = async (userId, vars, varsUpdated) => {
     isVarsModified: varsUpdated
   }
 
-  const matches = await api.post(`/api/v1/user/getMatchList`, matchParams);
-  return matches;
+  const response = await api.post(`/api/v1/user/getMatchList`, matchParams);
+  return response;
 }
 
 const fetchCelebs = async () => {

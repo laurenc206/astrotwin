@@ -28,7 +28,7 @@ import PlutoIcon from '../../images/pluto.svg';
 
 
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import api from '../../api/axiosConfig';
 
 const MatchResult = ({ user, userChart }) => {
