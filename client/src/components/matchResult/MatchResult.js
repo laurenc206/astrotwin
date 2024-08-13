@@ -25,11 +25,22 @@ import UranusIcon from '../../images/uranus.svg';
 import NeptuneIcon from '../../images/neptune.svg';
 import PlutoIcon from '../../images/pluto.svg';
 
-
-
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import api from '../../api/axiosConfig';
+
+const fetchCeleb = async (name) => {
+  const options = {
+    method: 'GET',
+    url: `${process.env.React_app_BACKEND_URL}/api/v1/celeb/search`,
+    params: {
+        query: name
+    }
+  }
+  
+  const response = await axios.request(options);
+  return response;
+}
 
 const MatchResult = ({ user, userChart }) => {
   const [celebChart, setCelebChart] = useState();
@@ -55,23 +66,16 @@ const MatchResult = ({ user, userChart }) => {
   
   useEffect(() => {
     getCelebData(match?.celeb.name)
-
-  }, [])
-  
-  const getCelebData = async (celebName) => {
-    try {
-      const response = await api.get(`/api/v1/celeb/search/${celebName}`);
-      const data = response.data;
+    fetchCeleb(match?.celeb.name).then((response) => {
+      const celebData = response.data;
       const planetMap = new Map(data.celebChart.chart.map(i => [i.planet, [i.zodiac, i.element, i.mode, i.house]]));
       setCelebChart(planetMap);
-    } catch (err) {
-      console.error(err);
-    }
-  }
+    }).catch((e) => {
+      console.error(e);
+    })
+  }, [match])
+  
 
- 
-  
-  
   return (
     <>
 <div className="page-wrapper">
