@@ -32,9 +32,26 @@ const ResultCeleb = ({ matches }) => {
     const [celebBday, setCelebBday] = useState()
     const [curMatch, setCurMatch] = useState()
     const [celebChart, setCelebChart] = useState()
+    const [imageUrl, setImageUrl] = useState('')
 
     let params = useParams();
     const celebName = params.celebName;
+
+    const formatImageUrl = (imgUrl) => {
+      if (imgUrl) {
+          const httpCount = imgUrl.match(/http/g).length;
+          if (httpCount > 1) {
+              const startIdx = imgUrl.lastIndexOf('http');
+              const formatImageUrl = imgUrl.substring(startIdx);
+              console.log("reformatted image url " + formatImageUrl)
+              setImageUrl(formatImageUrl)
+          } else {
+              setImageUrl(imgUrl)
+          }
+      }
+    }
+  
+
 
     useEffect(() => {
       fetchCeleb(celebName).then((response) => {
@@ -52,6 +69,11 @@ const ResultCeleb = ({ matches }) => {
       })
     }, [celebName, matches])
 
+    useEffect(() => {
+      if (celeb) {
+          formatImageUrl(celeb?.imageUrl)
+      }
+    }, [celeb])
     
 
     return (
@@ -64,7 +86,7 @@ const ResultCeleb = ({ matches }) => {
       <div className="terms-card">
         <div className="text-box centered">
           <div id="w-node-d2c611e1-d0e4-fbde-15e9-89d67e2f1935-781602bd" className="w-layout-layout person-header wf-layout-layout">
-            <div id="w-node-_04bbb9aa-a22d-8c3b-884c-beb78fb5e5bf-781602bd" className="w-layout-cell"><img src={celeb?.imageUrl} loading="lazy" width="214" alt=""/></div>
+            <div id="w-node-_04bbb9aa-a22d-8c3b-884c-beb78fb5e5bf-781602bd" className="w-layout-cell"><img src={imageUrl} loading="lazy" width="214" alt=""/></div>
             <div id="w-node-a8007f7f-5f1c-16ae-cfe1-5e5c0a2393b2-781602bd" className="w-layout-cell">
               <h1 className="heading-2">{celeb?.name}</h1>
               <div id="w-node-_7353c4b0-05c9-aef4-9829-6b9a74915ea4-781602bd" className="w-layout-layout quick-stack-6 wf-layout-layout">

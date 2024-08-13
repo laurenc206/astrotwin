@@ -1,10 +1,34 @@
 import React from 'react';
-
+import { useEffect, useState } from 'react';
 
 const MatchHeader = ({user, match}) => {
+  const [imgUrl, setImageUrl] = useState('')
+
   const celebBday = new Date(match?.celeb.bday)
 
-    return (
+
+  const formatImageUrl = (imgUrl) => {
+    console.log("format image url " + imgUrl)
+    if (imgUrl) {
+        const httpCount = imgUrl.match(/http/g).length;
+        if (httpCount > 1) {
+            const startIdx = imgUrl.lastIndexOf('http');
+            const formatImageUrl = imgUrl.substring(startIdx);
+            console.log("formatted image url " + formatImageUrl)
+            setImageUrl(formatImageUrl)
+        } else {
+            setImageUrl(imgUrl)
+        }
+    }
+  }
+
+  useEffect(() => {
+    if (match) {
+        formatImageUrl(match?.celeb.imageUrl)
+    }
+  }, [match])
+
+  return (
 <>
 
     <div className="section_2 wf-section">
@@ -13,7 +37,7 @@ const MatchHeader = ({user, match}) => {
         
         <div id="w-node-_1e2202d2-e629-88bf-5764-32b9ff4cd5b7-e3b8d21a" className="w-layout-cell cell-2b"><h1 >{Math.round(match?.percent)}% match</h1></div>
         
-        <div id="w-node-b33d1ab9-58f0-2422-5d8b-b804a8ab5b87-e3b8d21a" className="w-layout-cell"><img src={match?.celeb.imageUrl} loading="lazy" alt="" />  </div>
+        <div id="w-node-b33d1ab9-58f0-2422-5d8b-b804a8ab5b87-e3b8d21a" className="w-layout-cell"><img src={imgUrl} loading="lazy" alt="" />  </div>
         
 
         <div id="w-node-acfb0cfc-423c-6793-641c-9f45e3b8d22d-e3b8d21a" className="w-layout-cell cell-9">
