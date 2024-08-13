@@ -44,6 +44,19 @@ const fetchCelebs = async () => {
   return response;
 }
 
+const fetchCeleb = async (name) => {
+  const options = {
+    method: 'GET',
+    url: `${process.env.React_app_BACKEND_URL}/api/v1/celeb/search`,
+    params: {
+        query: name
+    }
+  }
+  
+  const response = await axios.request(options);
+  return response;
+}
+
 function App() {
   const initVars = {
     Sun: 4.0,

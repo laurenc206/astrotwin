@@ -1,17 +1,17 @@
 import MatchRow from "./MatchRow";
 import MatchHeader from "./MatchHeader";
 
-import SunPlanet from '../../images/planet-sun.webp';
-import MoonPlanet from '../../images/planet-moon.webp';
+import SunPlanet from '../../images/planet-sun.svg';
+import MoonPlanet from '../../images/planet-moon.svg';
 import AscendantPlanet from '../../images/ascendant.svg';
-import MarsPlanet from '../../images/planet-mars.webp';
-import VenusPlanet from '../../images/planet-venus.webp';
-import MercuryPlanet from '../../images/planet-mercury.webp';
-import JupiterPlanet from '../../images/planet-jupiter.webp';
-import SaturnPlanet from '../../images/planet-saturn.webp';
-import UranusPlanet from '../../images/planet-uranus.webp';
+import MarsPlanet from '../../images/planet-mars.svg';
+import VenusPlanet from '../../images/planet-venus.svg';
+import MercuryPlanet from '../../images/planet-mercury.svg';
+import JupiterPlanet from '../../images/planet-jupiter.svg';
+import SaturnPlanet from '../../images/planet-saturn.svg';
+import UranusPlanet from '../../images/planet-uranus.svg';
 import NeptunePlanet from '../../images/planet-neptune.webp';
-import PlutoPlanet from '../../images/planet-pluto.webp';
+import PlutoPlanet from '../../images/planet-pluto.svg';
 
 import SunIcon from '../../images/sun.svg';
 import MoonIcon from '../../images/moon.svg';
@@ -27,7 +27,7 @@ import PlutoIcon from '../../images/pluto.svg';
 
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import api from '../../api/axiosConfig';
+import axios from 'axios';
 
 const fetchCeleb = async (name) => {
   const options = {
@@ -65,7 +65,6 @@ const MatchResult = ({ user, userChart }) => {
   }
   
   useEffect(() => {
-    getCelebData(match?.celeb.name)
     fetchCeleb(match?.celeb.name).then((response) => {
       const celebData = response.data;
       const planetMap = new Map(data.celebChart.chart.map(i => [i.planet, [i.zodiac, i.element, i.mode, i.house]]));

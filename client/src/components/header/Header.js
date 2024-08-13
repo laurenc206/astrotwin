@@ -1,5 +1,5 @@
 
-import AstroTwinIcon from '../../images/istockphoto-1284299717-612x612.jpeg';
+import AstroTwinIcon from '../../images/istockphoto-1284299717-612x612.svg';
 import { Link } from 'react-router-dom';
 const Header = ({user}) => {
     return (

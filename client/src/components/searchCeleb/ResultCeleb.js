@@ -12,7 +12,6 @@ import SaturnIcon from '../../images/saturn.svg';
 import UranusIcon from '../../images/uranus.svg';
 import NeptuneIcon from '../../images/neptune.svg';
 import PlutoIcon from '../../images/pluto.svg';
-import api from '../../api/axiosConfig'
 import axios from 'axios';
 
 const fetchCeleb = async (name) => {
