@@ -13,12 +13,18 @@ import UranusIcon from '../../images/uranus.svg';
 import NeptuneIcon from '../../images/neptune.svg';
 import PlutoIcon from '../../images/pluto.svg';
 import api from '../../api/axiosConfig'
+import axios from 'axios';
 
 const fetchCeleb = async (name) => {
-  const searchParams = {
-    query: name
+  const options = {
+    method: 'GET',
+    url: `${process.env.React_app_BACKEND_URL}/api/v1/celeb/search`,
+    params: {
+        query: name
+    }
   }
-  const response = await api.get(`/api/v1/celeb/search`, searchParams)
+  
+  const response = await axios.request(options);
   return response;
 }
 

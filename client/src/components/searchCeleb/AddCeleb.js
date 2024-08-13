@@ -5,11 +5,13 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const insertCeleb = async (name) => {
-  const searchParams = {
+  const search = {
     query: name
   }
-  const response = await api.post(`/api/v1/celeb/insertCelebByName`, searchParams)
+  
+  const response = await api.post("api/v1/celeb/insertCelebByName", search)
   return response;
+
 }
 
 

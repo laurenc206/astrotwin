@@ -13,13 +13,19 @@ import ResultCeleb from './components/searchCeleb/ResultCeleb';
 import AddCeleb from './components/searchCeleb/AddCeleb';
 import ContactMe from './components/contactMe/ContactMe';
 import About from './components/about/About';
+import axios from 'axios';
 
 const fetchUser = async (userId) => {
-    const searchParams = {
-      query: userId
-    } 
-    const response = await api.get(`/api/v1/user/getUser`, searchParams)
-    return response;
+  const options = {
+    method: 'GET',
+    url: `${process.env.React_app_BACKEND_URL}/api/v1/user/getUser`,
+    params: {
+        query: userId
+    }
+  }
+  
+  const response = await axios.request(options);
+  return response;
 }
 
 const fetchMatches = async (userId, vars, varsUpdated) => {
@@ -69,6 +75,7 @@ function App() {
   // dont do a get user chart method
   // getting the user will return the chart with it
   const getUserData = async (userId) => {
+    console.log("get user data")
     fetchUser(userId).then((response) => {
       const userData = response.data
       const chartData = new Map(response.data.userChart.chart.map(i => [i.planet, [i.zodiac, i.element, i.mode, i.house]]))

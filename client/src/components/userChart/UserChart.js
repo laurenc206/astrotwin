@@ -14,15 +14,12 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const UserChart = ({user, userChart, matchData, getUserData}) => {
-
   let params = useParams();
   const chartId = params.chartId;
 
   useEffect(() => {
-    // make sure to add caching so backend doesnt go to database for every req  
     if (!user || user.chartId !== chartId) getUserData(chartId)
- 
-  }, [])
+  }, [user])
   
   return (
   <div className="w-layout-blockcontainer account-page-wrapper w-container">
