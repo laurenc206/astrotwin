@@ -1,9 +1,20 @@
-<h1>This is the frontend for my astrotwin website!</h1>
-All pages are components with routes defined in the main App component.<br><br>
+<h1>This is the frontend for my Astrotwin website!</h1>
+<h3>About: </h3>
+Astrotwin is a web application where users can calculate their astrology chart and find celebrities who best match their chart!<br><br>
+It has a number of features such as:
+<ul>
+<li>Adjustable match variables for users to customize matches and emphasize certain chart placements</li>
+<li>A searchable celebrity database for users to compare their chart with a specific celebrities</li>
+<li>If a celebrity isn't in the database, users can insert their own celebrities!</li>
+</ul>
+<br>  
+<b>For more information about this project and how I created it check out the [About](https://astrotwin.live/about) section on astrotwin.live</b>
+<br><br>
 
-There are two seperate API services utilized:
+<h3>APIs: </h3>
+There are two seperate API services I created for this application:
 <ol>
-  <li>Proxy-server (part of this astrotwin_client directory) to protect google maps API key for location look-up services.</li>
+  <li>A proxy-server (in the astrotwin_client/server directory) to protect google maps API key for the location autocomplete services</li>
   <br>
   <li>The [astrotwin_server](https://github.com/laurenc206/astrotwin_server) program that is used to:</li>
     <ul>  
@@ -12,7 +23,7 @@ There are two seperate API services utilized:
       <li>Run the matching algorithm on the celebrity chart database to retrieve a user's top matches</li>
     </ul>
 </ol>
-For more information about this project and how I created it check out the [About](https://astrotwin.live/about) section on astrotwin.live
+
 <br><br>
 <h2>To Start the Frontend:</h2>
 
