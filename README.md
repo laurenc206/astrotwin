@@ -17,7 +17,7 @@ For more information about this project and how I created it check out the [Abou
 <h2>To Start the Frontend:</h2>
 
 <h3>Prerequisites:</h3>
-You will need to create an .env file in both the client and server directories as these are seperate applications.<br>
+You will need to create an .env file in both the client and server directories as these are seperate applications.<br><br>
 <ul>
   <li>In the .env for the server:
     <ul
@@ -25,7 +25,7 @@ You will need to create an .env file in both the client and server directories a
       <li><b>GOOGLE_MAPS_API_KEY=</b> your google maps api key</li>
     </ul>
   </li>
-   
+   <br>
   <li>In the .env for the client:
     <ul>
       <li><b>React_app_BACKEND_URL=</b> the url and port of astrotwin_server</li>
@@ -39,4 +39,4 @@ Begin by making sure node-js is installed and install necessary packages by runn
 <h3>To Run:</h3>
  First, start the proxy_server by navigating to astrotwin-client/server and running `npm run start` (or `pm2 start ecosystem.config.js` if using pm2) <br><br>
 After the proxy_server has started, in astrotwin-client/client directory, run `npm run start` <br><br>
-Note you will also want to make sure backend astrotwin_server has the url of astrotwin-client/client so that CORS will allow requests to go through. To do this, set the @CrossOrigin(origins = "astrotwin-client/client-url") at the top of CelebController and UserController located in the [Controller directory](https://github.com/laurenc206/astrotwin_server/tree/main/src/main/java/dev/lauren/astrotwin/Controller)
+Note you will also want to make sure backend astrotwin_server has the url of astrotwin-client/client so that CORS will allow requests to go through. To do this, set the @CrossOrigin(origins = "astrotwin-client/client-url") at the top of CelebController and UserController located in the [Controller directory](https://github.com/laurenc206/astrotwin_server/tree/main/src/main/java/dev/lauren/astrotwin/Controller) of the astrotwin backend.
