@@ -1,12 +1,17 @@
-This is the frontend for my astrotwin website! 
+<h1>This is the frontend for my astrotwin website!</h1>
+<br>
+All pages are components with routes defined in the main App component.<br><br>
 
-All pages are components with routes defined in the main App component.
 There are two seperate API services utilized:
-One is the proxy-server (code contained in this astrotwin_client directory) that helps to protect google maps API key for location services.
+<ol>
+  <li>Proxy-server (part of this astrotwin_client directory) to protect google maps API key for location look-up services.</li>
+  <br>
+  <li>The [astrotwin_server](https://github.com/laurenc206/astrotwin_server) program that is used to:</li>
+    <ul>  
+      <li>Connect to the celebrity chart database</li>
+      <li>Calculat charts</li>
+      <li>Run the matching algorithm on the celebrity chart database to retrieve a user's top matches</li>
+    </ul>
+</ol>
+For more information about this project and how I created it check out the [About](https://astrotwin.live/about) section on astrotwin.live
 
-The second API service is part of the astrotwin_server program that:
-Connects to the celebrity chart database 
-Calculates charts
-Runs the matching algorithm on the celebrity chart database to retrieve a user's top matches
-
-For more information about this project and how I created it check out astrotwin.live/about
