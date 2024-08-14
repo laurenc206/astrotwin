@@ -1,5 +1,4 @@
 <h1>This is the frontend for my astrotwin website!</h1>
-<br>
 All pages are components with routes defined in the main App component.<br><br>
 
 There are two seperate API services utilized:
@@ -9,9 +8,8 @@ There are two seperate API services utilized:
   <li>The [astrotwin_server](https://github.com/laurenc206/astrotwin_server) program that is used to:</li>
     <ul>  
       <li>Connect to the celebrity chart database</li>
-      <li>Calculat charts</li>
+      <li>Calculate charts</li>
       <li>Run the matching algorithm on the celebrity chart database to retrieve a user's top matches</li>
     </ul>
 </ol>
 For more information about this project and how I created it check out the [About](https://astrotwin.live/about) section on astrotwin.live
-
