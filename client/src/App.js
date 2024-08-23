@@ -82,6 +82,7 @@ function App() {
   const [vars, setVars] = useState(initVars);
   const [varsUpdated, setVarsUpdated] = useState(false)
   const [celebList, setCelebList] = useState([]);
+  const [networkError, setNetworkError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -96,6 +97,7 @@ function App() {
       setUserChart(chartData)
     }).catch((e) => {
       console.error(e)
+      setNetworkError(true);
     })
   }
 
@@ -106,12 +108,17 @@ function App() {
         setVarsUpdated(false)
       }).catch((e) => {
         console.error(e)
+        setNetworkError(true);
       })
     } 
   }
 
   useEffect(() => {
       updateMatchData()
+        .catch((e) => {
+          console.error(e);
+          setNetworkError(true);
+        })
   }, [vars, user, celebList])
 
   useEffect(() => {
@@ -121,10 +128,16 @@ function App() {
   },[user])
 
   useEffect(() => {
-    fetchCelebs().then((response) => {
+    fetchCelebs()
+      .then((response) => {
       setCelebList(response.data)
-    })
+      }).catch((err) => {
+        console.error(err);
+        if (err.code === "ERR_NETWORK")
+        setNetworkError(true);
+      });
   }, [])
+
 
   return (
     <>
@@ -134,14 +147,14 @@ function App() {
     <Header user={user}/>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/createChart" element={<CreateChart setUser={setUser} setUserChart={setUserChart} />}></Route>
+          <Route path="/createChart" element={<CreateChart setUser={setUser} setUserChart={setUserChart} networkError={networkError} />}></Route>
           <Route path="/matchResult" element={<MatchResult user={user} userChart={userChart}/>}></Route>
-          <Route path="/modifyVars" element={<ModifyVars vars={vars} setVars={setVars} setVarsUpdated={setVarsUpdated} initVars={initVars}/>}></Route> 
+          <Route path="/modifyVars" element={<ModifyVars vars={vars} setVars={setVars} setVarsUpdated={setVarsUpdated} initVars={initVars} networkError={networkError}/>}></Route> 
           <Route path="/userChart/:chartId" element={<UserChart user={user} userChart={userChart} matchData={matchData} getUserData={getUserData}/>}></Route>
-          <Route path="/searchCeleb" element={<SearchCeleb celebList={celebList}/>}></Route>
-          <Route path="/resultCeleb/:celebName" element={<ResultCeleb matches={matchData}/>}></Route>
-          <Route path="/addCeleb" element={<AddCeleb celebList={celebList} setCelebList={setCelebList} />}></Route>
-          <Route path="/contactMe" element={<ContactMe/>}/>
+          <Route path="/searchCeleb" element={<SearchCeleb celebList={celebList} networkError={networkError}/>}></Route>
+          <Route path="/resultCeleb/:celebName" element={<ResultCeleb matches={matchData} />}></Route>
+          <Route path="/addCeleb" element={<AddCeleb celebList={celebList} setCelebList={setCelebList} networkError={networkError}/>}></Route>
+          <Route path="/contactMe" element={<ContactMe/>} networkError={networkError}/>
           <Route path="/about" element={<About/>}></Route>
         </Route>
       </Routes>

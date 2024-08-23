@@ -15,7 +15,7 @@ const insertCeleb = async (name) => {
 }
 
 
-const AddCeleb = ({ celebList, setCelebList }) => {
+const AddCeleb = ({ celebList, setCelebList, networkError }) => {
   const { control, reset,  handleSubmit, formState: {isSubmitted, isSubmitting, isDirty}} = useForm()
   const [errorState, setErrorState] = useState('');
   const navigate = useNavigate();
@@ -87,6 +87,11 @@ const AddCeleb = ({ celebList, setCelebList }) => {
                     Unable to connect to data service
                 </div>
             )}
+            {networkError && 
+              <div className="w-layout-cell w-form-fail">
+                Unable to connect to data service
+              </div>
+            }
           </div>
         </div>
       </div>

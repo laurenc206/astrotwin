@@ -1,6 +1,6 @@
 import CreateChartForm from "./CreateChartForm"
 
-const CreateChart = ({setUser, setUserChart}) => {
+const CreateChart = ({setUser, setUserChart, networkError}) => {
  
     return (
         <div className="page-wrapper">
@@ -12,7 +12,7 @@ const CreateChart = ({setUser, setUserChart}) => {
                     <div className="spacer _32"></div>
                     <div className="form-card">
                     
-                    <CreateChartForm setUser={setUser} setUserChart={setUserChart}/>
+                    <CreateChartForm setUser={setUser} setUserChart={setUserChart} networkError={networkError}/>
 
                     </div>
                     </div>

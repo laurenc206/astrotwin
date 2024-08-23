@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import Autocomplete from "@mui/material/Autocomplete";
 
-const SearchCeleb = ({ celebList }) => {
+const SearchCeleb = ({ celebList, networkError }) => {
     const { control, handleSubmit, formState: {isSubmitting}} = useForm()
     const [errorState, setErrorState] = useState('');
     const [open, setOpen] = useState(false);
@@ -140,7 +140,7 @@ const SearchCeleb = ({ celebList }) => {
                     Unable to connect to data service
                 </div>
             )}
-
+            
           </div>
         </div>
       </div>

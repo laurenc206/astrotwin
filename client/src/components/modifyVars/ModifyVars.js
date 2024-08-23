@@ -1,6 +1,6 @@
 import ModifyVarsForm from "./ModifyVarsForm";
 
-const ModifyVars = ({vars, setVars, setVarsUpdated, initVars}) => {
+const ModifyVars = ({vars, setVars, setVarsUpdated, initVars, networkError}) => {
     
 
     return (
@@ -11,7 +11,7 @@ const ModifyVars = ({vars, setVars, setVarsUpdated, initVars}) => {
   </div>
   <div className="section light-grey wf-section">
     <div className="container w-container">
-      <ModifyVarsForm vars={vars} setVars={setVars} setVarsUpdated={setVarsUpdated} initVars={initVars}/>
+      <ModifyVarsForm vars={vars} setVars={setVars} setVarsUpdated={setVarsUpdated} initVars={initVars} networkError={networkError}/>
     </div>
   </div>
   </>

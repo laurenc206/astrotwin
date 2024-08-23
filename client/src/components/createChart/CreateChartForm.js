@@ -65,7 +65,7 @@ const createUser = async (formData, locationData) => {
     return response;
 }
 
-const CreateChartForm = ({setUser, setUserChart}) => { 
+const CreateChartForm = ({setUser, setUserChart, networkError}) => { 
     const { control, handleSubmit, formState: {isSubmitting, errors}} = useForm()
     const [dbError, setDbError] = useState()
     const [dateError, setDateError] = useState()
@@ -178,12 +178,13 @@ const CreateChartForm = ({setUser, setUserChart}) => {
            
             <div className="spacer _16"></div>  
 
-            <input type="submit" value="Find Celebrity AstroTwin" className="button w-button" disabled={isSubmitting}/>
+            <input type="submit" value="Find Celebrity AstroTwin" className="button w-button" disabled={isSubmitting || networkError}/>
 
             </div>
 
         </form>
         {dbError && (<ErrorMsg error={dbError}/>)}
+        {networkError && (<ErrorMsg error={"Unable to connect to data service"}/>)}
        </>
     );
 };
