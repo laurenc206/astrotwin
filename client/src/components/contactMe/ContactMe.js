@@ -2,40 +2,69 @@ import { Controller, useForm } from 'react-hook-form'
 import { TextField } from '@mui/material';
 import { useState } from 'react';
 import api from '../../api/axiosConfig';
+import emailjs from '@emailjs/browser';
 
 const ContactMe = () => {
     const {handleSubmit, control, formState: {isSubmitting, errors}} = useForm()
     const [formStatus, setFormStatus] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
+    const [loading, setLoading] = useState(false);
 
+    const serviceId = "service_ddfrj6s";
+    const templateId = "template_a11pjna";
+    const publicKey = "JcUurtGC";
+    
 
     const onSubmit = async (data) => {
         setFormStatus('')
         setErrorMessage('')
-        const form= {
-            firstName: data.firstName,
-            lastName: data.lastName,
-            email: data.email,
-            message: data.message
-        }
+        setLoading(true);
 
-        try {   
-            const response = await api.post("api/v1/user/contactMe", form) 
-            setFormStatus(response.data)
 
-            if (formStatus != "Success") {
-                setErrorMessage("Oops! Something went wrong. Please fill in the required fields and try again.")
-            }
+        const templateParams = {
+          from_name: data.firstName + " " + data.lastName, 
+          from_email: data.email,
+          to_name: "Lauren",
+          to_email: "cavanaugh.lc@gmail.com",
+          message: data.message,
+        };
 
-        } catch (err) {
-            console.error(err)
-            setFormStatus(err.code)
-            if (formStatus === "ERR_NETWORK") {
-                setErrorMessage("Unable to connect to data service.")
-            } else {
-                setErrorMessage("Oops! Something went wrong. Please fill in the required fields and try again.")
-            }
-        }
+        emailjs.send(serviceId, templateId, templateParams, publicKey).
+          then(() => {
+            setFormStatus("Success");
+
+          }, (err) => {
+            setFormStatus("Error");
+            setErrorMessage("Oops! Something went wrong. Please fill in the required fields and try again.");
+            console.error(err);
+            
+          
+          }).catch((err) => {
+            setFormStatus("Error");
+            setErrorMessage("Unable to connect to email service.");
+            console.error(err);
+
+          }).finally(() => {
+            setLoading(false)
+          });
+
+        //try {   
+        //    const response = await api.post("api/v1/user/contactMe", form) 
+        //    setFormStatus(response.data)
+
+        //    if (formStatus != "Success") {
+        //        setErrorMessage("Oops! Something went wrong. Please fill in the required fields and try again.")
+        //    }
+
+        //} catch (err) {
+        //    console.error(err)
+        //    setFormStatus(err.code)
+        //    if (formStatus === "ERR_NETWORK") {
+        //        setErrorMessage("Unable to connect to data service.")
+        //    } else {
+        //        setErrorMessage("Oops! Something went wrong. Please fill in the required fields and try again.")
+        //    }
+        //}
        
     };
 
@@ -157,7 +186,7 @@ const ContactMe = () => {
                 <div className="spacer _16"></div>  
                 
                 <div id="w-node-bc7dc6ea-5844-85ac-2c94-664ddcd62d67-96dc377f" className="w-layout-cell cell-14">
-                    <input type="submit" value="Send Message" className="button no-margin w-button" disabled={isSubmitting}/>
+                    <input type="submit" value="Send Message" className="button no-margin w-button" disabled={loading}/>
                 </div>
                 
                 </div>

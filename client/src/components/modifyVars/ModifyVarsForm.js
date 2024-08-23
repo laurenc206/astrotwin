@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import SlideVal from "./SlideVal";
 
 
-const ModifyVarsForm = ({vars, setVars, setVarsUpdated, initVars}) => {
+const ModifyVarsForm = ({vars, setVars, setVarsUpdated, initVars, networkError}) => {
   const [varsObj, setVarsObj] = useState()
   const { control, handleSubmit, reset, formState: {isSubmitted, isDirty}} = useForm()
   
@@ -77,13 +77,18 @@ const ModifyVarsForm = ({vars, setVars, setVarsUpdated, initVars}) => {
               <div id="w-node-_35a82d6c-2e64-22b2-490a-69d1a9de2098-781602ad" className="w-layout-cell"></div>
             </div>
             <div id="w-node-_281ae0c8-c087-7d59-5ada-d56a51f2f630-781602ad" className="w-layout-layout wf-layout-layout">
-              <div id="w-node-_281ae0c8-c087-7d59-5ada-d56a51f2f631-781602ad" className="w-layout-cell"><input type="submit" value="Submit" className="button w-button"/></div>
+              <div id="w-node-_281ae0c8-c087-7d59-5ada-d56a51f2f631-781602ad" className="w-layout-cell"><input type="submit" value="Submit" className="button w-button" disabled={networkError}/></div>
               <div id="w-node-_281ae0c8-c087-7d59-5ada-d56a51f2f632-781602ad" className="w-layout-cell"><input type="submit" value="Set to Default" onClick={onReset} className="button w-button"/></div>
             </div>
           </form>
               
           {(isSubmitted && !isDirty) && (<div className="container form-error w-form-fail"> New values saved!</div>)}
-
+          
+          {networkError &&
+            <div className="w-layout-cell w-form-fail">
+                Unable to connect to data service
+              </div>
+          }
         
         </div>
       </div>
